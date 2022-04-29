@@ -4,18 +4,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Button from "./Components/Button";
 import Search from "./Components/Search";
+import Body from "./Components/Body";
 
 function App() {
   const pages = new Map([
-    ["physician", "Examination Orders"],
-    ["radiologist", "Examination Order"],
-    ["headDepart", "Examination Order"],
+    ["physician", ["Examination Orders"]],
+    ["radiologist", ["Examination Order"]],
+    ["headDepart", ["Examination Order"]],
     ["admin", ["users", "DICOM"]],
   ]);
 
   const [loggedIn, setLoggin] = useState(false);
 
-  const [navPages, setNavPages] = useState([]);
+  const [navPages, setNavPages] = useState(pages);
 
   return (
     <>
@@ -27,7 +28,7 @@ function App() {
             element={
               <>
                 <div className="w-full bg-white">
-                  <Navbar pages={navPages} />
+                  <Navbar pages={navPages.get("physician")} />
                   <div className="container  mx-auto flex-col w-5/6">
                     <div className="flex justify-between m-6">
                       <div>
@@ -37,6 +38,7 @@ function App() {
                         <Search />
                       </div>
                     </div>
+                    <Body />
                   </div>
                 </div>
               </>

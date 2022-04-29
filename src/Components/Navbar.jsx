@@ -13,16 +13,26 @@ export const Navbar = ({ pages }) => {
               <img src={logo} alt="logo" />
             </Link>
           </div>
-          {/* <div className="flex justify-evenly mx-2">
-            {pages.forEach((value, key) => (
-              <h3 key={key}>{value}</h3>
-            ))}
-            <div>
+          <div className="flex justify-center items-center mx-2">
+            <div className="mx-2">
+              {pages.map(
+                (page, index) => (
+                  console.log(page),
+                  (
+                    <h3 className="text-black" key={index}>
+                      {page}
+                    </h3>
+                  )
+                )
+              )}
+            </div>
+
+            <div className="mx-2">
               <Link to="/logout">
                 <img src={logout} alt="logout" />
               </Link>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </>
