@@ -5,6 +5,7 @@ import "./App.css";
 import Button from "./Components/Button";
 import Search from "./Components/Search";
 import Body from "./Components/Body";
+import Footer from "./Components/Footer";
 
 function App() {
   const pages = new Map([
@@ -27,9 +28,9 @@ function App() {
             path="/"
             element={
               <>
-                <div className="w-full bg-white">
+                <div className="w-full min-h-screen bg-white">
                   <Navbar pages={navPages.get("physician")} />
-                  <div className="container  mx-auto flex-col w-5/6">
+                  <div className="container relative mx-auto flex-col w-5/6 pb-2">
                     <div className="flex justify-between m-6">
                       <div>
                         <Button label="Add User" />
@@ -40,6 +41,7 @@ function App() {
                     </div>
                     <Body />
                   </div>
+                  <Footer />
                 </div>
               </>
             }
