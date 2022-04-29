@@ -6,13 +6,10 @@ module.exports = {
     extend: {
       colors : {
         navGray : '#F3F3F3',
-      }
+        appPink : '#FF66C4',
+      },
     },
-    colors : {
-      transparent: 'transparent',
-        current: 'currentColor',
-    }
-   
   },
   plugins: [],
 }
+

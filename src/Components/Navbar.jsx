@@ -9,17 +9,20 @@ export const Navbar = ({ pages }) => {
       <div className="w-full bg-navGray">
         <div className="container mx-auto flex justify-between w-5/6 p-4">
           <div className="">
-            {/* <img src={logo} alt="logo" /> */}
-            <Link to='/'><img src={logo} alt="logo" /></Link> 
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
           </div>
-          <div className='flex justify-evenly mx-2'>
-          {pages.forEach ((value , key) => 
+          {/* <div className="flex justify-evenly mx-2">
+            {pages.forEach((value, key) => (
               <h3 key={key}>{value}</h3>
-          )}    
-          <div>
-            <Link to='/logout'><img src={logout} alt="logout"/></Link> 
-          </div>
-        </div>
+            ))}
+            <div>
+              <Link to="/logout">
+                <img src={logout} alt="logout" />
+              </Link>
+            </div>
+          </div> */}
         </div>
       </div>
     </>
