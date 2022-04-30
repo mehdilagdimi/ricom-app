@@ -6,6 +6,7 @@ import Button from "./Components/Button";
 import Search from "./Components/Search";
 import Body from "./Components/Body";
 import Footer from "./Components/Footer";
+import Pagination from "./Components/Pagination";
 
 function App() {
   const pages = new Map([
@@ -39,12 +40,10 @@ function App() {
                         <Search />
                       </div>
                     </div>
-                    <div className="">
-                
-                    </div>
                     <Body />
                   </div>
                   <Footer />
+                  <Pagination />
                 </div>
               </>
             }
