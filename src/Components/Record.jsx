@@ -3,30 +3,20 @@ import Button from "./Button"
 const Record = () => {
   return (
     <>
-      <div className="flex flex-wrap bg-navGray items-center my-3 py-1 px-5 rounded-lg ">
-        <div className="flex flex-1 justify-between mx-6 py-4">
-          <div>
-            <p>Patient</p>
-          </div>
-          <div>
-            <p>Patient</p>
-          </div>
-          <div>
-            <p>Patient</p>
-          </div>
-          <div>
-            <p>Patient</p>
-          </div>
-        </div>
-        <div className="flex justify-end">
-          <div className="mx-1">
-            <Button label="REPORT" />
-          </div>
-          <div className="mx-1 ">
-            <Button label="EDIT" />
-          </div>
-        </div>
-      </div>
+       <tr className="bg-navGray text-center">
+          <td className="p-4 rounded-lg"> Patient</td>
+          <td> Patient</td>
+          <td>Patient</td>
+          <td>Patient</td>
+          <td className="flex justify-end p-4">
+            <div className="mx-1">
+              <Button label="REPORT" />
+            </div>
+            <div className="mx-1">
+              <Button label="EDIT" />
+            </div>
+          </td>
+        </tr>
     </>
   );
 };

@@ -7,7 +7,7 @@ export const Navbar = ({ pages }) => {
   return (
     <>
       <div className="w-full bg-navGray">
-        <div className="container mx-auto flex justify-between w-5/6 p-4">
+        <div className="container mx-auto flex flex-wrap justify-between w-5/6 p-4">
           <div className="">
             <Link to="/">
               <img src={logo} alt="logo" />

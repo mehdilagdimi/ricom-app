@@ -31,13 +31,16 @@ function App() {
                 <div className="w-full min-h-screen bg-white">
                   <Navbar pages={navPages.get("physician")} />
                   <div className="container relative mx-auto flex-col w-5/6 pb-2">
-                    <div className="flex justify-between m-6">
-                      <div>
+                    <div className="flex flex-wrap justify-between m-6">
+                      <div className="my-2">
                         <Button label="Add User" />
                       </div>
-                      <div>
+                      <div className="my-2">
                         <Search />
                       </div>
+                    </div>
+                    <div className="">
+                
                     </div>
                     <Body />
                   </div>

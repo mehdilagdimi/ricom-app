@@ -13,7 +13,7 @@ const Search = () => {
                 aria-describedby="button-addon2"
               />
               <button
-                className="btn mx-1 px-6 py-2.5 bg-black text-appPink font-mediappm text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center"
+                className="btn mx-1 px-6 py-2.5 bg-black text-appPink font-mediappm text-xs leading-tight uppercase rounded shadow-md hover:bg-appPink hover:text-white hover:shadow-lg focus:bg-appPink focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-appPink active:text-white active:shadow-lg transition duration-150 ease-in-out flex items-center"
                 type="button"
                 id="button-addon2"
               >
@@ -22,7 +22,7 @@ const Search = () => {
                   focusable="false"
                   data-prefix="fas"
                   data-icon="search"
-                  className="w-4"
+                  className="w-4 "
                   role="img"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"
