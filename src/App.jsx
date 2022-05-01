@@ -25,8 +25,8 @@ function App() {
   const [blurClass, setBlur] = useState("");
   const showPopup = () => {
     setShowForm(true);
-    setBlur("blur-sm")
-  }
+    setBlur("blur-sm");
+  };
   return (
     <>
       {/* <Link to="/"><button></button></Link> */}
@@ -36,9 +36,14 @@ function App() {
             path="/"
             element={
               <>
-                <div className="w-full min-h-screen bg-white font-bahnschrift">
+                <div
+                  className="w-full min-h-screen bg-white font-bahnschrift"
+                  onClick={() => showForm && (setShowForm(false), setBlur(""))}
+                >
                   <Navbar pages={navPages.get("physician")} />
-                  <div className={`container relative ${blurClass} mx-auto flex-col w-5/6 pb-2`}>
+                  <div
+                    className={`container relative ${blurClass} mx-auto flex-col w-5/6 pb-2`}
+                  >
                     <div className="flex flex-wrap justify-between m-6">
                       <div className="my-2">
                         <Button onClick={showPopup} label="Add User" />
@@ -52,8 +57,8 @@ function App() {
                   </div>
                   <Footer />
                   {/* <Pagination /> */}
-                  {showForm && <AddForm getInput={(value) => setValue(value)}/>}
                 </div>
+                {showForm && <AddForm getInput={(value) => setValue(value)} />}
               </>
             }
           ></Route>
