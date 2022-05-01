@@ -4,15 +4,15 @@ const Record = () => {
   return (
     <>
        <tr className="bg-navGray text-center">
-          <td className="p-2 rounded-lg"> Patient</td>
-          <td> Patient</td>
-          <td>Patient</td>
-          <td>Patient</td>
-          <td className="flex h-full p-2 justify-center items-center">
-            <div className="mx-1">
+          <td className="py-2 px-6 rounded-lg text-left"> Patient</td>
+          <td className="py-2 px-6"> Patient</td>
+          <td className="py-2 px-6">Patient</td>
+          <td className="py-2 px-6">Patient</td>
+          <td className="h-full py-2 px-6 text-right">
+            <div className="m-2 inline-block">
               <Button label="REPORT" />
             </div>
-            <div className="mx-1">
+            <div className="m-2 inline-block">
               <Button label="EDIT" />
             </div>
           </td>

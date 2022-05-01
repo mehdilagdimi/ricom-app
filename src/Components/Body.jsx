@@ -5,14 +5,14 @@ import Record from "./Record";
 const Body = () => {
   return (
     <>
-      <div>
-        <table className="w-full table-fixed border-separate border-spacing">
+      <div className="overflow-auto">
+        <table className="w-full table-auto border-separate border-spacing-responsive md:border-spacing ">
           <tr className="bg-white text-center py-1 h-4 w-5/6">
-            <th className="p-4">Patient Ref</th>
-            <th>Order</th>
-            <th>Added At</th>
-            <th>Status</th>
-            <th></th>
+            <th className="p-4 text-left ">Patient REF</th>
+            <th className="p-4">Order</th>
+            <th className="p-4">Added At</th>
+            <th className="p-4">Status</th>
+            <th className="p-4"></th>
           </tr>
           <Record />
           <Record />

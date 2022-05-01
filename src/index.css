@@ -20,4 +20,7 @@ code {
   .border-spacing {
     border-spacing : 0px 10px;
   }
+  .border-spacing-responsive {
+    border-spacing : 2px 10px;
+  }
 }
