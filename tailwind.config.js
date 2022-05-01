@@ -9,8 +9,11 @@ module.exports = {
         appPink : '#FF66C4',
         footerGray : '#373737'
       },
+      fontFamily: {
+        'bahnschrift': ['Bahnschrift', 'sans-serif'],
     },
   },
   plugins: [],
+}
 }
 

@@ -23,4 +23,13 @@ code {
   .border-spacing-responsive {
     border-spacing : 2px 10px;
   }
+   /* Chrome, Safari and Opera */
+   .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }

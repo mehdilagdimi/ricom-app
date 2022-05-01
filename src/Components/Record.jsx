@@ -4,7 +4,7 @@ const Record = () => {
   return (
     <>
        <tr className="bg-navGray text-center">
-          <td className="py-2 px-6 rounded-lg text-left"> Patient</td>
+          <td className="py-2 px-6 text-left rounded-l-lg"> Patient</td>
           <td className="py-2 px-6"> Patient</td>
           <td className="py-2 px-6">Patient</td>
           <td className="py-2 px-6">Patient</td>

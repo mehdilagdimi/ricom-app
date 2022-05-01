@@ -5,8 +5,8 @@ import Record from "./Record";
 const Body = () => {
   return (
     <>
-      <div className="overflow-auto w-full h-[550px]">
-        <table className="w-full table-auto border-separate border-spacing-responsive md:border-spacing ">
+      <div className="overflow-auto no-scrollbar w-full h-[550px]">
+        <table className="w-full table-auto border-separate border-spacing-responsive md:border-spacing">
           {/* <thead class="flex w-full items-center justify-between mb-7"> */}
             <tr className="bg-white sticky top-0 text-center py-1 h-4 w-5/6">
               <th className="p-4 text-left ">Patient REF</th>

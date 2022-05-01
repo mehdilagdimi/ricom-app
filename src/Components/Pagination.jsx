@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 const Pagination = () => {
   return (
-    <div className="flex w-full justify-center items-center fixed bottom-16 mb-10 mx-auto">
+    <div className="flex w-full justify-center items-center relative bottom-0 mt-3 mb-10 mx-auto">
       <nav>
         <ul className="flex">
           <li className="bg-navGray m-2 text-lg font-bold leading-tight shadow-md transition duration-150 ease-in-out hover:bg-appPink hover:text-white hover:shadow-lg focus:bg-appPink focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-appPink active:text-white active:shadow-lg">
