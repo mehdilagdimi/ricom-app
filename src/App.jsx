@@ -7,6 +7,7 @@ import Search from "./Components/Search";
 import Body from "./Components/Body";
 import Footer from "./Components/Footer";
 import Pagination from "./Components/Pagination";
+import AddForm from "./Components/AddForm";
 
 function App() {
   const pages = new Map([
@@ -19,7 +20,9 @@ function App() {
   const [loggedIn, setLoggin] = useState(false);
 
   const [navPages, setNavPages] = useState(pages);
-
+  const [showForm, setShowForm] = useState(false);
+  const [value, setValue] = useState();
+  
   return (
     <>
       {/* <Link to="/"><button></button></Link> */}
@@ -34,7 +37,7 @@ function App() {
                   <div className="container relative mx-auto flex-col w-5/6 pb-2">
                     <div className="flex flex-wrap justify-between m-6">
                       <div className="my-2">
-                        <Button label="Add User" />
+                        <Button onClick={() => setShowForm(true)} label="Add User" />
                       </div>
                       <div className="my-2">
                         <Search />
@@ -44,6 +47,7 @@ function App() {
                   </div>
                   <Footer />
                   <Pagination />
+                  {showForm && <AddForm getInput={(value) => setValue(value)}/>}
                 </div>
               </>
             }

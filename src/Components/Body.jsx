@@ -8,10 +8,10 @@ const Body = () => {
       <div>
         <table className="w-full table-fixed border-separate border-spacing">
           <tr className="bg-white text-center py-1 h-4 w-5/6">
-            <th className="p-4">Company</th>
-            <th>Contact</th>
-            <th>Country</th>
-            <th>Country</th>
+            <th className="p-4">Patient Ref</th>
+            <th>Order</th>
+            <th>Added At</th>
+            <th>Status</th>
             <th></th>
           </tr>
           <Record />
