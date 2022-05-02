@@ -1,6 +1,37 @@
-const Button = ({ label, onClick }) => {
+import { useState } from "react";
+
+const Button = ({ label, onClick}) => {
+  // const [focus, setFocus] = useState(() => ({
+  //   active: false,
+  //   addFocus:
+  //     " bg-appPink text-white shadow-lg outline-none ring-0",
+  // }));
+
+  const onCLICK = (event) => {
+    onClick(event);
+    if(label == "REPORT") {
+      let classNames = ['bg-black', 'text-appPink']
+      let classNames2 = ["bg-appPink", "text-white"]
+      classNames.forEach(clssName => event.currentTarget.classList.toggle(clssName))
+      classNames2.forEach(clssName => event.currentTarget.classList.toggle(clssName))
+  
+    }
+   
+    // setFocus(() => ({
+    //   active: !focus.active,
+    //   addFocus:
+    //     " bg-appPink text-white shadow-lg outline-none ring-0",
+    // }));
+  }
+
   return (
-    <button onClick={onClick} className="bg-black px-6 py-2.5 text-appPink text-md leading-tight uppercase rounded-md shadow-md transition duration-150 ease-in-out hover:bg-appPink hover:text-white hover:shadow-lg focus:bg-appPink focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-appPink active:text-white active:shadow-lg">
+    <button
+      onClick={onCLICK}
+      className={`bg-black text-appPink px-6 py-2.5 text-md leading-tight uppercase rounded-md shadow-md transition duration-150 
+      ease-in-out hover:bg-appPink hover:text-white hover:shadow-lg 
+    
+  
+      active:bg-appPink active:text-white active:shadow-lg`} >
       {label}
     </button>
   );

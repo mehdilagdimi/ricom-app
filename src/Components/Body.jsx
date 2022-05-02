@@ -3,7 +3,8 @@ import Pagination from "./Pagination";
 import Record from "./Record";
 import Report from "./Report";
 
-const Body = () => {
+const Body = ( {onClickEdit}) => {
+
   return (
     <>
       <div className="overflow-auto no-scrollbar w-full h-[550px]">
@@ -18,8 +19,8 @@ const Body = () => {
           </tr>
           {/* </thead> */}
           {/* <tbody className="flex flex-col items-center justify-between overflow-y-scroll w-full"> */}
-          <Record />
-          <Report />
+          <Record onClickEdit={onClickEdit}/>
+          {/* <Report /> */}
           <Record />
           <Record />
           <Record />

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Button from "./Button";
 const AddForm = ({ getInput }) => {
   const [value, setValue] = useState();
+  const [value2, setValue2] = useState();
 
   useEffect(() => {
     getInput(value);
@@ -28,7 +29,7 @@ const AddForm = ({ getInput }) => {
               Order{" "}
             </label>
 
-            <textarea className="m-4 rounded-md p-4 border-gray-300 border"></textarea>
+            <textarea className="m-4 rounded-md p-4 border-gray-300 border">{value2}</textarea>
           </div>
           <div className="flex justify-end w-full px-4">
             <Button label="SAVE" />

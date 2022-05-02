@@ -9,7 +9,7 @@ import Footer from "./Components/Footer";
 import Pagination from "./Components/Pagination";
 import AddForm from "./Components/AddForm";
 
-function App() {
+function App( ) {
   const pages = new Map([
     ["physician", ["Examination Orders"]],
     ["radiologist", ["Examination Order"]],
@@ -46,13 +46,13 @@ function App() {
                   >
                     <div className="flex flex-wrap justify-between mx-6 my-1">
                       <div className="my-2">
-                        <Button onClick={showPopup} label="Add User" />
+                        <Button toggle={false} onClick={showPopup} label="Add User" />
                       </div>
                       <div className="my-2">
                         <Search />
                       </div>
                     </div>
-                    <Body />
+                    <Body onClickEdit={showPopup}/>
                     <Pagination />
                   </div>
                   <Footer />
