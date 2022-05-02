@@ -44,7 +44,7 @@ function App() {
                   <div
                     className={`container relative ${blurClass} mx-auto flex-col w-5/6 pb-2`}
                   >
-                    <div className="flex flex-wrap justify-between m-6">
+                    <div className="flex flex-wrap justify-between mx-6 my-1">
                       <div className="my-2">
                         <Button onClick={showPopup} label="Add User" />
                       </div>

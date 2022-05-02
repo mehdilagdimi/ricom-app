@@ -3,7 +3,7 @@ const Search = () => {
     <>
       <form>
         <div className="flex justify-center">
-          <div className="mb-3 xl:w-96">
+          <div className="mb-1 xl:w-96">
             <div className="input-group relative flex flex-row items-stretch w-full mb-4">
               <input
                 type="search"
