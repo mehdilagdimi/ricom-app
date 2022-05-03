@@ -30,7 +30,6 @@ const Record = ({onClickEdit}) => {
           </td>
         </tr>
         {showReport && <Report /> }
-        {/* {showUpdateForm && <AddForm getInput={(value) => setValue(value)} />} */}
     </> 
   );
 };
