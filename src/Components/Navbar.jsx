@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 
 import logo from "../logo.svg";
+import logoRDA from '../logoRDA.svg'
 import logout from "../logout.png";
 
-export const Navbar = ({ pages }) => {
+
+export const Navbar = ({ pages, loggedIn }) => {
   return (
     <>
       <div className="w-full bg-navGray">
@@ -14,7 +16,7 @@ export const Navbar = ({ pages }) => {
             </Link>
           </div>
           <div className="flex justify-center items-center mx-2">
-            <div className="mx-2">
+            {loggedIn && <div className="mx-2">
               {pages.map(
                 (page, index) => (
                   console.log(page),
@@ -25,11 +27,15 @@ export const Navbar = ({ pages }) => {
                   )
                 )
               )}
-            </div>
+            </div> }
 
             <div className="mx-2">
               <Link to="/logout">
-                <img src={logout} alt="logout" />
+                {loggedIn ? (
+                  <img src={logout} alt="logout" />
+                ) : (
+                  <img src={logoRDA} className="h-16 w-46" alt="parent company logo" />
+                )}
               </Link>
             </div>
           </div>

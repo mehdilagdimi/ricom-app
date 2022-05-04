@@ -1,10 +1,20 @@
+import { useState, useEffect } from "react";
 import Button from "./Button";
 import Pagination from "./Pagination";
 import Record from "./Record";
 import Report from "./Report";
 
 const Body = ( {onClickEdit}) => {
+  const userBtns = {
+   Radiologist : ["REPORT", "EDIT"],
+   Physician : ["REPORT", "DONE"],
+  }
 
+  const [user, setUser] = useState("Radiologist")
+  useEffect(() => {
+    // setUser(userToCommWith.get(user))
+  },[user])
+  
   return (
     <>
       <div className="overflow-auto no-scrollbar w-full h-[550px]">
@@ -15,43 +25,23 @@ const Body = ( {onClickEdit}) => {
             <th className="p-2">Order</th>
             <th className="p-2">Added At</th>
             <th className="p-2">Status</th>
+            <th className="p-2">{"Physician"}</th>
             <th className="p-2"></th>
           </tr>
           {/* </thead> */}
           {/* <tbody className="flex flex-col items-center justify-between overflow-y-scroll w-full"> */}
-          <Record onClickEdit={onClickEdit}/>
-          {/* <Report /> */}
-          <Record />
-          <Record />
-          <Record />
-          <Record />
-          <Record />
-          <Record />
-          <Record />
-          <Record />
-          <Record />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+        
           {/* </tbody> */}
         </table>
       </div>
-      {/* <div className="flex flex-wrap bg-navGray items-center my-3 py-1 w-5/6 rounded-lg ">
-        <div className="flex flex-wrap flex-1 justify-between mx-5 py-4">
-          <div>
-            <p>Patient</p>
-          </div>
-          <div>
-            <p>Patient</p>
-          </div>
-          <div>
-            <p>Patient</p>
-          </div>
-          <div>
-            <p>Patient</p>
-          </div>
-        </div>
-      </div>
-      <Record />
-      <Record />
-      <Record /> */}
     </>
   );
 };

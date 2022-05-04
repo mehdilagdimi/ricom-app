@@ -8,14 +8,19 @@ import Body from "./Components/Body";
 import Footer from "./Components/Footer";
 import Pagination from "./Components/Pagination";
 import AddForm from "./Components/AddForm";
+import Authenticate from "./Components/Authenticate";
 
-function App( ) {
+function App() {
   const pages = new Map([
     ["physician", ["Examination Orders"]],
     ["radiologist", ["Examination Order"]],
     ["headDepart", ["Examination Order"]],
     ["admin", ["users", "DICOM"]],
   ]);
+  const userBtns = {
+    Radiologist: ["Done", "Show Study"],
+    Physician: ["Add User"],
+  };
 
   const [loggedIn, setLoggin] = useState(false);
 
@@ -37,24 +42,38 @@ function App( ) {
             element={
               <>
                 <div
-                  className="w-full min-h-screen bg-white font-bahnschrift"
+                  className="w-full h-full min-h-screen bg-white font-bahnschrift"
                   onClick={() => showForm && (setShowForm(false), setBlur(""))}
                 >
-                  <Navbar pages={navPages.get("physician")} />
-                  <div
-                    className={`container relative ${blurClass} mx-auto flex-col w-5/6 pb-2`}
-                  >
-                    <div className="flex flex-wrap justify-between mx-6 my-1">
-                      <div className="my-2">
-                        <Button toggle={false} onClick={showPopup} label="Add User" />
+                  <Navbar loggedIn={loggedIn} pages={navPages.get("physician")} />
+                  {!loggedIn ? (
+                    <Authenticate />
+                  ) : (
+                    <>
+                      <div
+                        className={`container relative ${blurClass} mx-auto flex-col w-5/6 pb-2`}
+                      >
+                        <div className="flex flex-wrap justify-between mx-6 my-1">
+                          <div className="flex justify-start">
+                            {userBtns.Physician.map((label) => (
+                              <div className="my-2 mx-1">
+                                <Button
+                                  toggle={false}
+                                  onClick={showPopup}
+                                  label={label}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                          <div className="my-2">
+                            <Search />
+                          </div>
+                        </div>
+                        <Body onClickEdit={showPopup} user={"Physician"} />
+                        <Pagination />
                       </div>
-                      <div className="my-2">
-                        <Search />
-                      </div>
-                    </div>
-                    <Body onClickEdit={showPopup}/>
-                    <Pagination />
-                  </div>
+                    </>
+                  )}
                   <Footer />
                   {/* <Pagination /> */}
                 </div>

@@ -5,31 +5,39 @@ import Report from './Report';
 
 
 
-const Record = ({onClickEdit}) => {
+const Record = ({onClickEdit, btnsLabel}) => {
   const [value, setValue] = useState()
   const [showReport, setShowReport] =  useState(false); 
   const [showUpdateForm, setShowUpdateForm] = useState(false)
+  const getReport = (report) => {
+    console.log(report)
+  }
+  console.log(btnsLabel[0])
 //   const onClick = (e) => {
 //     onClickEdit(e)
 // console.log(e)
 //   }
+
   return (
     <>
        <tr className="bg-navGray text-center">
           <td className="py-2 px-6 text-left rounded-l-lg"> Patient</td>
-          <td className="py-2 px-6"> Patient</td>
+          <td className="py-2 px-6"> Order Order Order</td>
           <td className="py-2 px-6">Patient</td>
-          <td className="py-2 px-6">Patient</td>
-          <td className="h-full py-2 px-6 text-right">
+          <td className="py-2 px-6">Pending</td>
+          <td className="py-2 px-6">Radiologist</td>
+          <td className="h-full w-40 py-2 px-1 text-right">
+            <div className="flex justify-end  p-0 m-0">
             <div className="m-2 inline-block">
-              <Button label="REPORT" onClick={() => setShowReport(!showReport)} />
+              <Button label={btnsLabel[0]} onClick={() => setShowReport(!showReport)} />
             </div>
             <div className="m-2 inline-block">
-              <Button label="EDIT" onClick={onClickEdit}/>
+              <Button label={btnsLabel[1]} onClick={onClickEdit}/>
+            </div>
             </div>
           </td>
         </tr>
-        {showReport && <Report /> }
+        {showReport && <Report user={"physician"} getReport={getReport}/> }
     </> 
   );
 };
