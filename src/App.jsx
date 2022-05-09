@@ -42,16 +42,17 @@ function App() {
             element={
               <>
                 <div
-                  className="w-full h-full min-h-screen bg-white font-bahnschrift"
+                  className={`w-full flex flex-col justify-between items-center relative min-h-screen  ${(!loggedIn ? `bg-navGray` : 'bg-white')} font-bahnschrift`}
                   onClick={() => showForm && (setShowForm(false), setBlur(""))}
                 >
-                  <Navbar loggedIn={loggedIn} pages={navPages.get("physician")} />
                   {!loggedIn ? (
                     <Authenticate />
                   ) : (
                     <>
+                      <Navbar pages={navPages.get("physician")} />
+
                       <div
-                        className={`container relative ${blurClass} mx-auto flex-col w-5/6 pb-2`}
+                        className={`container relative ${blurClass} mx-auto my-auto flex-col w-5/6 pb-2`}
                       >
                         <div className="flex flex-wrap justify-between mx-6 my-1">
                           <div className="flex justify-start">
@@ -74,8 +75,7 @@ function App() {
                       </div>
                     </>
                   )}
-                  <Footer />
-                  {/* <Pagination /> */}
+                  {loggedIn && <Footer /> }
                 </div>
                 {showForm && <AddForm getInput={(value) => setValue(value)} />}
               </>
