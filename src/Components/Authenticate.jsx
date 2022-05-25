@@ -1,8 +1,17 @@
+import axios from 'axios'
 import { Link } from "react-router-dom";
+import {useState } from "react"
 import logo from "../logo.svg";
 import illustration from "../illustration.svg";
 import logoRDA from "../logoRDA.svg";
 const Authenticate = () => {
+  const [email, setEmail] = useState("email");
+  const [passw, setPassw] = useState("");
+
+  const login = (e) => {
+    e.preventDefault();
+    console.log(email)
+  }
   return (
     <div className="flex flex-col flex-wrap justify-center container items-between mx-auto w-full h-full sm:w-5/6 p-6 sm:p-4 sm:mb-5">
       <div className="flex flex-wrap justify-center sm:justify-between items-center">
@@ -28,30 +37,37 @@ const Authenticate = () => {
       <div className="bg-footerGray w-11/12 flex flex-wrap mx-auto justify-center items-center rounded-xl h-[580px] mt-10 sm:mt-4 sm:h-[550px]">
         <div className="flex-1 flex flex-col  sm:h-full justify-center items-center p-2">
           <p className="text-center text-white text-lg sm:text-2xl m-1">
-            RICOM <br></br> Is Your effective daily workflow management platform
+            RICOM <br></br> is your effective daily workflow management platform
           </p>
           <img src={illustration} alt="illustration" className="h-24 sm:h-5/6 w-22 sm:w-5/6 m-1 " />
         </div>
         <div className="h-3/5 sm:h-4/5 w-5/6 sm:w-2/6">
-          <form className="h-full flex flex-col items-center justify-center">
+          <form className="h-full flex flex-col items-center justify-center" onSubmit={login}>
             <h3 className="text-white text-xl sm:text-2xl md:text-3xl pb-4 mb-8">
               Authenticate{" "}
             </h3>
             <div className="flex flex-col w-full items-center justify-center">
               <label htmlFor="id" className="text-white w-9/12">
-                Username or E-Mail
+                E-Mail
               </label>
               <input
                 className="bg-footerGray text-white rounded-md border-2 border-appPink h-16 sm:h-12 w-full sm:w-4/5 p-4 m-4"
-                type="text"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.currentTarget.value)}
               />
               <label htmlFor="id" className="text-white w-9/12">
                 Password
               </label>
               <input
                 className="bg-footerGray text-white  rounded-md border-2 border-appPink h-16 sm:h-12 w-full sm:w-4/5 p-4 m-4"
-                type="text"
+                type="password"
+                value={passw}
+                onChange={(e) => setPassw(e.currentTarget.value)}
               />
+              <div className="m-4">
+                <button className="py-2 px-6 bg-white text-black font-bold text-md rounded shadow-md">Log In</button>
+              </div>
             </div>
           </form>
         </div>
