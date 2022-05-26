@@ -1,17 +1,68 @@
-import axios from 'axios'
-import { Link } from "react-router-dom";
-import {useState } from "react"
+import axios from "axios";
+import useLocalStorage from "../Custom hooks/useLocalStorage.js";
+
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import logo from "../logo.svg";
 import illustration from "../illustration.svg";
 import logoRDA from "../logoRDA.svg";
-const Authenticate = () => {
-  const [email, setEmail] = useState("email");
-  const [passw, setPassw] = useState("");
 
-  const login = (e) => {
+const Authenticate = ({ toggleLogin }) => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [passw, setPassw] = useState("");
+  // const [jwt, setJWT] = useLocalStorage();
+  const [jwt, setJWT] = useLocalStorage("");
+
+  // if(!jwt){}
+  const apiUrl = "http://localhost/ricom%20api/api/";
+  axios.interceptors.request.use(
+    (config) => {
+      const { origin } = new URL(config.url);
+      const allowedOrigins = [apiUrl];
+      const token = jwt;
+      if (allowedOrigins.includes(origin)) {
+        config.headers.authorization = `Bearer ${token}`;
+      }
+      return config;
+    }, 
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+  
+
+  const login = async (e) => {
     e.preventDefault();
-    console.log(email)
-  }
+    console.log(email);
+    if (!email) {
+      alert("Please enter your login credentials");
+    }
+
+    await axios
+      .post("http://localhost/ricom%20api/api/authenticate/", {
+        email: email,
+        passw: passw,
+      },  
+      {
+        withCredentials : true
+      })
+      .then((response) => {
+        console.log(response.data);
+        //Get generated token and store it in localstorage/cookie
+        // storeToken(response.data);
+        // console.log(loggedIn)
+        if (response.data.response == "Invalid credentials") {
+          toggleLogin(false);
+          setJWT("");
+        } else if (response.data.response == "Access allowed") {
+          toggleLogin(true);
+          setJWT(response.data.jwt);
+        }
+        // console.log(loggedIn)
+        // navigate('/')
+      });
+  };
   return (
     <div className="flex flex-col flex-wrap justify-center container items-between mx-auto w-full h-full sm:w-5/6 p-6 sm:p-4 sm:mb-5">
       <div className="flex flex-wrap justify-center sm:justify-between items-center">
@@ -39,10 +90,17 @@ const Authenticate = () => {
           <p className="text-center text-white text-lg sm:text-2xl m-1">
             RICOM <br></br> is your effective daily workflow management platform
           </p>
-          <img src={illustration} alt="illustration" className="h-24 sm:h-5/6 w-22 sm:w-5/6 m-1 " />
+          <img
+            src={illustration}
+            alt="illustration"
+            className="h-24 sm:h-5/6 w-22 sm:w-5/6 m-1 "
+          />
         </div>
         <div className="h-3/5 sm:h-4/5 w-5/6 sm:w-2/6">
-          <form className="h-full flex flex-col items-center justify-center" onSubmit={login}>
+          <form
+            className="h-full flex flex-col items-center justify-center"
+            onSubmit={login}
+          >
             <h3 className="text-white text-xl sm:text-2xl md:text-3xl pb-4 mb-8">
               Authenticate{" "}
             </h3>
@@ -66,7 +124,9 @@ const Authenticate = () => {
                 onChange={(e) => setPassw(e.currentTarget.value)}
               />
               <div className="m-4">
-                <button className="py-2 px-6 bg-white text-black font-bold text-md rounded shadow-md">Log In</button>
+                <button className="py-2 px-6 bg-white text-black font-bold text-md rounded shadow-md">
+                  Log In
+                </button>
               </div>
             </div>
           </form>

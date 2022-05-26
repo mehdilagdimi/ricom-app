@@ -1,5 +1,5 @@
 import Navbar from "./Components/Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Button from "./Components/Button";
@@ -9,6 +9,7 @@ import Footer from "./Components/Footer";
 import Pagination from "./Components/Pagination";
 import AddForm from "./Components/AddForm";
 import Authenticate from "./Components/Authenticate";
+import axios from "axios";
 
 function App() {
   const pages = new Map([
@@ -22,16 +23,32 @@ function App() {
     Physician: ["Add User"],
   };
 
-  const [loggedIn, setLoggin] = useState(false);
+  const [loggedIn, setLogin] = useState(false);
+  // const loggedIn = false;
 
   const [navPages, setNavPages] = useState(pages);
   const [showForm, setShowForm] = useState(false);
   const [value, setValue] = useState();
   const [blurClass, setBlur] = useState("");
-  const showPopup = () => {
+
+  useEffect(() => {
+    // console.log(loggedIn)
+  }, [loggedIn])
+  
+  const showPopup = async () => {
     setShowForm(true);
+    const test = 5;
+    await axios.get(
+      `http://localhost/ricom%20api/api/authenticate/testcookie/${test}`,
+      {
+        withCredentials:true
+      }
+    ).then((response)=> console.log("cookie", response.data))
+
     setBlur("blur-sm");
   };
+
+
   return (
     <>
       {/* <Link to="/"><button></button></Link> */}
@@ -46,7 +63,7 @@ function App() {
                   onClick={() => showForm && (setShowForm(false), setBlur(""))}
                 >
                   {!loggedIn ? (
-                    <Authenticate />
+                    <Authenticate toggleLogin={setLogin} />
                   ) : (
                     <>
                       <Navbar pages={navPages.get("physician")} />
