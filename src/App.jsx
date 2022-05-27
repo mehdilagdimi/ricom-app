@@ -9,9 +9,11 @@ import Footer from "./Components/Footer";
 import Pagination from "./Components/Pagination";
 import AddForm from "./Components/AddForm";
 import Authenticate from "./Components/Authenticate";
+// import axiosConfig from "./lib/axios.config";
 import axios from "axios";
 
 function App() {
+  // axiosConfig();
   const pages = new Map([
     ["physician", ["Examination Orders"]],
     ["radiologist", ["Examination Order"]],
@@ -24,6 +26,7 @@ function App() {
   };
 
   const [loggedIn, setLogin] = useState(false);
+  const [role, setRole] = useState("admin");
   // const loggedIn = false;
 
   const [navPages, setNavPages] = useState(pages);
@@ -31,7 +34,24 @@ function App() {
   const [value, setValue] = useState();
   const [blurClass, setBlur] = useState("");
 
+  const login = async () => {
+    await axios
+      .get(`http://localhost/ricom%20api/api/authenticate/validate_jwt/${role}/`,  
+      {
+        withCredentials : true
+      })
+      .then((response) => {
+        console.log(response.data);     
+        if (response.data.response == "Failed authentication") {
+          setLogin(false);
+        } else if (response.data.response == "Successfully authenticated") {
+          setLogin(true);
+        }
+      });
+  };
+  login();
   useEffect(() => {
+    
     // console.log(loggedIn)
   }, [loggedIn])
   

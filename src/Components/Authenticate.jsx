@@ -1,4 +1,5 @@
 import axios from "axios";
+// import axiosConfig from "../lib/axios.config";
 import useLocalStorage from "../Custom hooks/useLocalStorage.js";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -11,26 +12,10 @@ const Authenticate = ({ toggleLogin }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [passw, setPassw] = useState("");
-  // const [jwt, setJWT] = useLocalStorage();
-  const [jwt, setJWT] = useLocalStorage("");
-
-  // if(!jwt){}
-  const apiUrl = "http://localhost/ricom%20api/api/";
-  axios.interceptors.request.use(
-    (config) => {
-      const { origin } = new URL(config.url);
-      const allowedOrigins = [apiUrl];
-      const token = jwt;
-      if (allowedOrigins.includes(origin)) {
-        config.headers.authorization = `Bearer ${token}`;
-      }
-      return config;
-    }, 
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-  
+  // const [jwt, setJWT] = useSessionStorage("");
+  // if(jwt){
+  //   axiosConfig()
+  // };
 
   const login = async (e) => {
     e.preventDefault();
@@ -48,18 +33,14 @@ const Authenticate = ({ toggleLogin }) => {
         withCredentials : true
       })
       .then((response) => {
-        console.log(response.data);
-        //Get generated token and store it in localstorage/cookie
-        // storeToken(response.data);
-        // console.log(loggedIn)
+        // console.log(response.data);     
         if (response.data.response == "Invalid credentials") {
           toggleLogin(false);
-          setJWT("");
+          // setJWT("");
         } else if (response.data.response == "Access allowed") {
           toggleLogin(true);
-          setJWT(response.data.jwt);
+          // setJWT(response.data.jwt);
         }
-        // console.log(loggedIn)
         // navigate('/')
       });
   };
