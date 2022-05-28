@@ -1,5 +1,7 @@
 import Navbar from "./Components/Navbar";
 import { useState, useEffect } from "react";
+import useSessionStorage from "./Custom hooks/useSessionStorage.js";
+import useLocalStorage from "./Custom hooks/useLocalStorage.js";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Button from "./Components/Button";
@@ -11,6 +13,7 @@ import AddForm from "./Components/AddForm";
 import Authenticate from "./Components/Authenticate";
 // import axiosConfig from "./lib/axios.config";
 import axios from "axios";
+import Delay from "./Components/helpers/Delay";
 
 function App() {
   // axiosConfig();
@@ -26,7 +29,8 @@ function App() {
   };
 
   const [loggedIn, setLogin] = useState(false);
-  const [role, setRole] = useState("admin");
+  // const [loggedIn, setLogin] = useSessionStorage("logState", false);
+  const [role, setRole] = useSessionStorage("role", "admin");
   // const loggedIn = false;
 
   const [navPages, setNavPages] = useState(pages);
@@ -34,36 +38,51 @@ function App() {
   const [value, setValue] = useState();
   const [blurClass, setBlur] = useState("");
 
-  const login = async () => {
-    await axios
-      .get(`http://localhost/ricom%20api/api/authenticate/validate_jwt/${role}/`,  
-      {
-        withCredentials : true
-      })
-      .then((response) => {
-        console.log(response.data);     
-        if (response.data.response == "Failed authentication") {
-          setLogin(false);
-        } else if (response.data.response == "Successfully authenticated") {
-          setLogin(true);
-        }
-      });
-  };
-  login();
+ 
+ 
   useEffect(() => {
-    
+    if(loggedIn == false){
+      const persistlogin = async () => {
+        await axios
+          .get(`http://localhost/ricom%20api/api/authenticate/validate_jwt/${role}/`,  
+          {
+            withCredentials : true
+          })
+          .then((response) => {
+            // console.log(response.data.json);     
+            if (response.data.response == "Failed authentication") {
+              console.log(loggedIn)
+              setLogin(false);
+            } else if (response.data.response == "Successfully authenticated") {
+              console.log(loggedIn)
+              setLogin(true);
+            }
+          })
+          .catch((e) => {
+            if(e.message){
+              console.log(e.message)
+            }
+             else if(e.request){
+              console.log(e.request)
+            }
+             else if(e.response){
+              console.log(e.response)
+            }
+          });
+      };
+      persistlogin();
+    }
     // console.log(loggedIn)
-  }, [loggedIn])
+  }, [])
   
   const showPopup = async () => {
     setShowForm(true);
-    const test = 5;
-    await axios.get(
-      `http://localhost/ricom%20api/api/authenticate/testcookie/${test}`,
-      {
-        withCredentials:true
-      }
-    ).then((response)=> console.log("cookie", response.data))
+    // await axios.get(
+    //   `http://localhost/ricom%20api/api/authenticate/testcookie/${test}`,
+    //   {
+    //     withCredentials:true
+    //   }
+    // ).then((response)=> console.log("cookie", response.data))
 
     setBlur("blur-sm");
   };
@@ -82,11 +101,12 @@ function App() {
                   className={`w-full flex flex-col justify-between items-center relative min-h-screen  ${(!loggedIn ? `bg-navGray` : 'bg-white')} font-bahnschrift`}
                   onClick={() => showForm && (setShowForm(false), setBlur(""))}
                 >
+                  <Delay delay={1}>
                   {!loggedIn ? (
                     <Authenticate toggleLogin={setLogin} />
                   ) : (
                     <>
-                      <Navbar pages={navPages.get("physician")} />
+                      <Navbar setLogin={setLogin} pages={navPages.get("physician")} />
 
                       <div
                         className={`container relative ${blurClass} mx-auto my-auto flex-col w-5/6 pb-2`}
@@ -113,6 +133,7 @@ function App() {
                     </>
                   )}
                   {loggedIn && <Footer /> }
+                  </Delay>
                 </div>
                 {showForm && <AddForm getInput={(value) => setValue(value)} />}
               </>

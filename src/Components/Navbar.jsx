@@ -1,9 +1,26 @@
 import { Link } from "react-router-dom";
-
+import axios from "axios"
+import useSessionStorage from "../Custom hooks/useSessionStorage.js";
 import logo from "../logo.svg";
-import logout from "../logout.png";
+import logoutIcon from "../logout.png";
 
-export const Navbar = ({ pages }) => {
+export const Navbar = ({ pages, setLogin }) => {
+  // const [logoutState, setLogoutState]  = useSessionStorage(true, true);
+  const logout = async () => {
+    await axios.get(
+      `http://localhost/ricom%20api/api/authenticate/logout`, 
+      {
+        withCredentials : true
+      }).then((response) => {
+        setLogin(false);
+        // if(window.sessionStorage.getItem("logState")){
+        //   window.sessionStorage.setItem("logState", false)
+        // }
+        // window.location.reload();
+        console.log(response.data);
+      })
+      }
+
   return (
     <>
       <div className="w-full bg-navGray">
@@ -27,9 +44,9 @@ export const Navbar = ({ pages }) => {
               )}
             </div>
 
-            <div className="mx-2">
-              <Link to="/logout">
-                <img src={logout} alt="logout" />
+            <div className="mx-2" >
+              <Link to="/">
+                <img onClick={logout} src={logoutIcon} alt="logout" />
               </Link>
             </div>
           </div>

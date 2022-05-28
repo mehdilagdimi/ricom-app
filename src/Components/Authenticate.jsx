@@ -1,6 +1,6 @@
 import axios from "axios";
 // import axiosConfig from "../lib/axios.config";
-import useLocalStorage from "../Custom hooks/useLocalStorage.js";
+
 
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -16,7 +16,6 @@ const Authenticate = ({ toggleLogin }) => {
   // if(jwt){
   //   axiosConfig()
   // };
-
   const login = async (e) => {
     e.preventDefault();
     console.log(email);
@@ -33,7 +32,7 @@ const Authenticate = ({ toggleLogin }) => {
         withCredentials : true
       })
       .then((response) => {
-        // console.log(response.data);     
+        console.log(response.data.response);     
         if (response.data.response == "Invalid credentials") {
           toggleLogin(false);
           // setJWT("");
