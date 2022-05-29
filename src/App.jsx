@@ -21,11 +21,12 @@ function App() {
     ["physician", ["Examination Orders"]],
     ["radiologist", ["Examination Order"]],
     ["headDepart", ["Examination Order"]],
-    ["admin", ["users", "DICOM"]],
+    ["admin", ["Users", "DICOM"]],
   ]);
   const userBtns = {
     Radiologist: ["Done", "Show Study"],
-    Physician: ["Add User"],
+    Physician: ["Add Order"],
+    Admin: ["Add User"],
   };
 
   const [loggedIn, setLogin] = useState(false);
@@ -54,7 +55,8 @@ function App() {
               console.log(loggedIn)
               setLogin(false);
             } else if (response.data.response == "Successfully authenticated") {
-              console.log(loggedIn)
+              console.log(loggedIn);
+              setRole(response.data.role);
               setLogin(true);
             }
           })
@@ -103,7 +105,7 @@ function App() {
                 >
                   <Delay delay={1}>
                   {!loggedIn ? (
-                    <Authenticate toggleLogin={setLogin} />
+                    <Authenticate toggleLogin={setLogin} setRole={setRole}/>
                   ) : (
                     <>
                       <Navbar setLogin={setLogin} pages={navPages.get("physician")} />

@@ -8,14 +8,11 @@ import logo from "../logo.svg";
 import illustration from "../illustration.svg";
 import logoRDA from "../logoRDA.svg";
 
-const Authenticate = ({ toggleLogin }) => {
+const Authenticate = ({ toggleLogin, setRole }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [passw, setPassw] = useState("");
-  // const [jwt, setJWT] = useSessionStorage("");
-  // if(jwt){
-  //   axiosConfig()
-  // };
+  
   const login = async (e) => {
     e.preventDefault();
     console.log(email);
@@ -35,10 +32,9 @@ const Authenticate = ({ toggleLogin }) => {
         console.log(response.data.response);     
         if (response.data.response == "Invalid credentials") {
           toggleLogin(false);
-          // setJWT("");
         } else if (response.data.response == "Access allowed") {
           toggleLogin(true);
-          // setJWT(response.data.jwt);
+          setRole(response.data.role);
         }
         // navigate('/')
       });
