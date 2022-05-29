@@ -60,7 +60,7 @@ const AddForm = ({role }) => {
               value={value}
               onChange={(e) => searchFor(e.currentTarget.value)}
               onBlur={() => {
-                setTimeout(()=> {setPatientsId([])}, 100)
+                setTimeout(()=> {setSuggestions([])}, 100)
               }}
             />
             {suggestions &&
@@ -68,7 +68,7 @@ const AddForm = ({role }) => {
                 <div
                   className="z-40 mx-4 w-11/12 top-1/3 mt-12 absolute py-1 pl-4 bg-white md:rounded border-gray-300 border"
                   key={i}
-                  onClick={() => setValue(sug)}
+                  onClick={() => (setValue(sug), setSuggestions([]))}
                 >
                   {sug}
                 </div>
