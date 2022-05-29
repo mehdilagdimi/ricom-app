@@ -36,7 +36,7 @@ function App() {
 
   const [navPages, setNavPages] = useState(pages);
   const [showForm, setShowForm] = useState(false);
-  const [value, setValue] = useState();
+  // const [value, setValue] = useState();
   const [blurClass, setBlur] = useState("");
 
  
@@ -52,10 +52,10 @@ function App() {
           .then((response) => {
             // console.log(response.data.json);     
             if (response.data.response == "Failed authentication") {
-              console.log(loggedIn)
+              console.log(response.data.response)
               setLogin(false);
             } else if (response.data.response == "Successfully authenticated") {
-              console.log(loggedIn);
+              console.log(response.data.response);
               setRole(response.data.role);
               setLogin(true);
             }
@@ -79,13 +79,6 @@ function App() {
   
   const showPopup = async () => {
     setShowForm(true);
-    // await axios.get(
-    //   `http://localhost/ricom%20api/api/authenticate/testcookie/${test}`,
-    //   {
-    //     withCredentials:true
-    //   }
-    // ).then((response)=> console.log("cookie", response.data))
-
     setBlur("blur-sm");
   };
 
@@ -137,7 +130,8 @@ function App() {
                   {loggedIn && <Footer /> }
                   </Delay>
                 </div>
-                {showForm && <AddForm getInput={(value) => setValue(value)} />}
+                {showForm && <AddForm role={role} />}
+                {/* {showForm && <AddForm getInput={(value) => setValue(value)} role={role} />} */}
               </>
             }
           ></Route>

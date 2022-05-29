@@ -3,15 +3,15 @@ import AddForm from "./AddForm";
 import Button from "./Button";
 import Report from "./Report";
 
-const Record = ({ onClickEdit, btnsLabel }) => {
+const Record = ({ onClickEdit, btnsLabel, role }) => {
   const [value, setValue] = useState();
   const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selected, setSelected] = useState(false);
   const getReport = (report) => {
-    console.log(report);
+    // console.log(report);
   };
-  console.log(btnsLabel[0]);
+  // console.log(btnsLabel[0]);
   //   const onClick = (e) => {
   //     onClickEdit(e)
   // console.log(e)
@@ -42,7 +42,7 @@ const Record = ({ onClickEdit, btnsLabel }) => {
           </div>
         </td>
       </tr>
-      {showReport && <Report user={"physician"} getReport={getReport} />}
+      {showReport && <Report user={role} getReport={getReport} />}
     </>
   );
 };

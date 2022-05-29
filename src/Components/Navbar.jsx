@@ -17,7 +17,7 @@ export const Navbar = ({ pages, setLogin }) => {
         //   window.sessionStorage.setItem("logState", false)
         // }
         // window.location.reload();
-        console.log(response.data);
+        // console.log(response.data);
       })
       }
 
@@ -34,7 +34,7 @@ export const Navbar = ({ pages, setLogin }) => {
             <div className="mx-2">
               {pages.map(
                 (page, index) => (
-                  console.log(page),
+                  // console.log(page),
                   (
                     <h3 className="text-black" key={index}>
                       {page}

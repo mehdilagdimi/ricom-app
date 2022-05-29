@@ -14,7 +14,7 @@ const Report = ({ user, getReport }) => {
     setDisabled(!disabled);
     label == "EDIT" ? setLabel("CANCEL") : setLabel("EDIT")
   };
-  console.log(user)
+  // console.log(user)
   const showSaveButton = () => {
     setShowSave(true);
   };
@@ -32,7 +32,7 @@ const Report = ({ user, getReport }) => {
           <div className="flex flex-col justify-between min-h-full h-5/6 bg-navGray border border-gray-300 rounded-md p-3">
           <form className="h-full w-full" onSubmit={(e) => e.preventDefault()}>
               <textarea
-                disabled={(user == "radiologist" ? false : true)}
+                disabled={(user == "RADIOLOGIST" ? false : true)}
                 className="h-5/6 w-full p-3 border border-gray-300"
                 value={value}
                 onFocus={showSaveButton}
@@ -41,7 +41,7 @@ const Report = ({ user, getReport }) => {
               >
                 
               </textarea>
-              {user == "radiologist" && (
+              {user == "RADIOLOGIST" && (
                 <>
                   <div className="flex justify-end">
                     {!showSave && (
@@ -74,7 +74,7 @@ const Report = ({ user, getReport }) => {
               >
                 TEXTkkk
               </textarea>
-              {user == "physician" && (
+              {user == "PHYSICIAN" && (
                 <>
                   <div className="flex justify-end">
                     {!showSave && (

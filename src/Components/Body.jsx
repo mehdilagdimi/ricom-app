@@ -33,26 +33,26 @@ const Body = ( {onClickEdit, role}) => {
           {/* <tbody className="flex flex-col items-center justify-between overflow-y-scroll w-full"> */}
           {role == 'ADMIN' &&
           <>
-            <Record btnsLabel={userBtns.Admin} onClickEdit={onClickEdit} />
-            <Record btnsLabel={userBtns.Admin} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Admin} role ={role} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Admin} role ={role} onClickEdit={onClickEdit} />
             </>
           }
           {role == 'PHYSICIAN' &&
           <>
-            <Record btnsLabel={userBtns.Physician} onClickEdit={onClickEdit} />
-            <Record btnsLabel={userBtns.Physician} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Physician} role ={role} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Physician} role ={role} onClickEdit={onClickEdit} />
             </>
           }
           {role == 'Radiologist' &&
           <>
-            <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-            <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Radiologist} role ={role} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Radiologist} role ={role} onClickEdit={onClickEdit} />
             </>
           }
           {role == 'HEADOFDEPART' &&
           <>
-            <Record btnsLabel={userBtns.HeadOfDepart} onClickEdit={onClickEdit} />
-            <Record btnsLabel={userBtns.HeadOfDepart} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.HeadOfDepart} role ={role} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.HeadOfDepart} role ={role} onClickEdit={onClickEdit} />
             </>
           }
           
