@@ -4,16 +4,17 @@ import Pagination from "./Pagination";
 import Record from "./Record";
 import Report from "./Report";
 
-const Body = ( {onClickEdit}) => {
+const Body = ( {onClickEdit, role}) => {
   const userBtns = {
-   Radiologist : ["REPORT", "EDIT"],
-   Physician : ["REPORT", "DONE"],
+   Admin : ["UPDATE", "ARCHIVE"],
+   Radiologist : ["REPORT", "DONE"],
+   Physician : ["REPORT", "EDIT"],
+   HeadOfDepart : ["ASSIGN", "VIEW"],
   }
 
-  const [user, setUser] = useState("Radiologist")
   useEffect(() => {
     // setUser(userToCommWith.get(user))
-  },[user])
+  },[role])
   
   return (
     <>
@@ -25,19 +26,36 @@ const Body = ( {onClickEdit}) => {
             <th className="p-2">Order</th>
             <th className="p-2">Added At</th>
             <th className="p-2">Status</th>
-            <th className="p-2">{"Physician"}</th>
+            <th className="p-2">{role == "PHYSICIAN" ? "Radiologist" : "Physician"}</th>
             <th className="p-2"></th>
           </tr>
           {/* </thead> */}
           {/* <tbody className="flex flex-col items-center justify-between overflow-y-scroll w-full"> */}
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
-          <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+          {role == 'ADMIN' &&
+          <>
+            <Record btnsLabel={userBtns.Admin} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Admin} onClickEdit={onClickEdit} />
+            </>
+          }
+          {role == 'PHYSICIAN' &&
+          <>
+            <Record btnsLabel={userBtns.Physician} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Physician} onClickEdit={onClickEdit} />
+            </>
+          }
+          {role == 'Radiologist' &&
+          <>
+            <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.Radiologist} onClickEdit={onClickEdit} />
+            </>
+          }
+          {role == 'HEADOFDEPART' &&
+          <>
+            <Record btnsLabel={userBtns.HeadOfDepart} onClickEdit={onClickEdit} />
+            <Record btnsLabel={userBtns.HeadOfDepart} onClickEdit={onClickEdit} />
+            </>
+          }
+          
         
           {/* </tbody> */}
         </table>

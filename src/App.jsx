@@ -129,7 +129,7 @@ function App() {
                             <Search />
                           </div>
                         </div>
-                        <Body onClickEdit={showPopup} user={"Physician"} />
+                        <Body onClickEdit={showPopup} role={role} />
                         <Pagination />
                       </div>
                     </>
