@@ -13,6 +13,7 @@ const Body = ( {onClickEdit, role}) => {
   }
 
   useEffect(() => {
+    console.log(role)
     // setUser(userToCommWith.get(user))
   },[role])
   

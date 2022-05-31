@@ -7,9 +7,11 @@ import { useState, useEffect } from "react";
 import logo from "../logo.svg";
 import illustration from "../illustration.svg";
 import logoRDA from "../logoRDA.svg";
+import useSessionStorage from "../Custom hooks/useSessionStorage";
 
-const Authenticate = ({ toggleLogin, setRole }) => {
+const Authenticate = ({ toggleLogin, setRole}) => {
   const navigate = useNavigate();
+  const [userID, setUserID] = useSessionStorage("ricomUserID", "");
   const [email, setEmail] = useState("");
   const [passw, setPassw] = useState("");
   
@@ -21,7 +23,7 @@ const Authenticate = ({ toggleLogin, setRole }) => {
     }
 
     await axios
-      .post("http://localhost/ricom%20api/api/authenticate/", {
+      .post("/api/authenticate/", {
         email: email,
         passw: passw,
       },  
@@ -35,6 +37,12 @@ const Authenticate = ({ toggleLogin, setRole }) => {
         } else if (response.data.response == "Access allowed") {
           toggleLogin(true);
           setRole(response.data.role);
+          
+          // console.log(response.data.userID)
+          if(!window.sessionStorage["ricomUserID"]){
+          // if(!window.sessionStorage["ricomUserID"]){
+            setUserID(response.data.userID);
+          }
         }
         // navigate('/')
       });
@@ -100,7 +108,7 @@ const Authenticate = ({ toggleLogin, setRole }) => {
                 onChange={(e) => setPassw(e.currentTarget.value)}
               />
               <div className="m-4">
-                <button className="py-2 px-6 bg-white text-black font-bold text-md rounded shadow-md">
+                <button type="submit" className="py-2 px-6 bg-white text-black font-bold text-md rounded shadow-md">
                   Log In
                 </button>
               </div>

@@ -30,13 +30,9 @@ function App() {
   };
 
   const [loggedIn, setLogin] = useState(false);
-  // const [loggedIn, setLogin] = useSessionStorage("logState", false);
-  const [role, setRole] = useSessionStorage("role", "admin");
-  // const loggedIn = false;
-
+  const [role, setRole] = useSessionStorage("role", "");
   const [navPages, setNavPages] = useState(pages);
   const [showForm, setShowForm] = useState(false);
-  // const [value, setValue] = useState();
   const [blurClass, setBlur] = useState("");
 
  
@@ -45,7 +41,8 @@ function App() {
     if(loggedIn == false){
       const persistlogin = async () => {
         await axios
-          .get(`http://localhost/ricom%20api/api/authenticate/validate_jwt/${role}/`,  
+          // .get(`/api/authenticate/validate_jwt/${role}/`,  
+          .get(`/api/authenticate/validate_jwt/${role}/`,  
           {
             withCredentials : true
           })
@@ -54,10 +51,15 @@ function App() {
             if (response.data.response == "Failed authentication") {
               console.log(response.data.response)
               setLogin(false);
+              setRole("");
+              // setUserID("");
             } else if (response.data.response == "Successfully authenticated") {
               console.log(response.data.response);
               setRole(response.data.role);
               setLogin(true);
+              // if(window.sessionStorage.getItem("ricomUserID") === null || window.sessionStorage.getItem("ricomUserID") !== response.data.userID){
+              //   setUserID(response.data.userID);
+              // }
             }
           })
           .catch((e) => {
@@ -74,7 +76,7 @@ function App() {
       };
       persistlogin();
     }
-    // console.log(loggedIn)
+    // console.log(userID)
   }, [])
   
   const showPopup = async () => {
@@ -98,7 +100,7 @@ function App() {
                 >
                   <Delay delay={1}>
                   {!loggedIn ? (
-                    <Authenticate toggleLogin={setLogin} setRole={setRole}/>
+                    <Authenticate toggleLogin={setLogin} setRole={setRole} />
                   ) : (
                     <>
                       <Navbar setLogin={setLogin} pages={navPages.get("physician")} />

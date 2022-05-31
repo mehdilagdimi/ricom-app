@@ -12,10 +12,10 @@ export const Navbar = ({ pages, setLogin }) => {
       {
         withCredentials : true
       }).then((response) => {
-        setLogin(false);
-        // if(window.sessionStorage.getItem("logState")){
-        //   window.sessionStorage.setItem("logState", false)
-        // }
+        setLogin(false);       
+        if(window.sessionStorage.getItem("ricomUserId")){
+          window.sessionStorage.setItem("ricomUserId", "");
+        }
         // window.location.reload();
         // console.log(response.data);
       })
