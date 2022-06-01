@@ -3,7 +3,7 @@ import AddForm from "./AddForm";
 import Button from "./Button";
 import Report from "./Report";
 
-const Record = ({ onClickEdit, btnsLabel, role }) => {
+const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const [value, setValue] = useState();
   const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -21,7 +21,7 @@ const Record = ({ onClickEdit, btnsLabel, role }) => {
   return (
     <>
       <tr className={`${selected ? "bg-gray-300" : "bg-navGray"} text-center`}>
-        <td className="py-2 px-6 text-left rounded-l-lg"> Patient</td>
+        <td className="py-2 px-6 text-left rounded-l-lg">{data.patient_id} </td>
         <td className="py-2 px-6"> Order Order Order</td>
         <td className="py-2 px-6">Patient</td>
         <td className="py-2 px-6">Pending</td>
