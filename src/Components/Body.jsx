@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+
+
 import Button from "./Button";
 import Pagination from "./Pagination";
 import Record from "./Record";
@@ -15,24 +17,31 @@ const Body = ({ onClickEdit, role }) => {
   const userID = window.sessionStorage.getItem("ricomUserID");
   const [recordsData, setRecordsData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [pageCount, setpageCount] = useState(0);
 
-  const fetchRecords = async () => {
+  const limit = 10;
+
+  const fetchRecords = async (currentPage = 0) => {
     await axios
-      .get(`/api/orders/getOrders/${userID}`, { withCredentials: true })
+      .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}}`, { withCredentials: true })
       .then((resp) => {
-        console.log(resp.data.data[0].id);
+        // console.log(resp.data.data[0].id);
+        console.log(resp.data.recordsTotal);
         setRecordsData(resp.data.data);
         setLoading(false);
+        let total = parseInt(resp.data.recordsTotal);
+        setpageCount(Math.ceil(total / limit));
       });
+      // return total;
   };
 
-  const getRecord = (record) => {
+  const getRecord = (record, idx) => {
       return (
         <>
           {role == "PHYSICIAN" && (
-            <>
+            <> 
               <Record
-                key={record.id}
+                key={idx}
                 btnsLabel={userBtns.Physician}
                 role={role}
                 onClickEdit={onClickEdit}
@@ -41,48 +50,48 @@ const Body = ({ onClickEdit, role }) => {
             </>
           )}
           {role == "ADMIN" && (
-            <>
+            // <>
               <Record
-                key={record.id}
+                key={idx}
                 btnsLabel={userBtns.Admin}
                 role={role}
                 onClickEdit={onClickEdit}
                 data={record}
               />
-            </>
+            // </>
           )}
           {role == "PHYSICIAN" && (
-            <>
+            // <>
               <Record
-                key={record.id}
+                key={idx}
                 btnsLabel={userBtns.Physician}
                 role={role}
                 onClickEdit={onClickEdit}
                 data={record}
               />
-            </>
+            // </>
           )}
           {role == "Radiologist" && (
-            <>
+            // <>
               <Record
-                key={record.id}
+                key={idx}
                 btnsLabel={userBtns.Radiologist}
                 role={role}
                 onClickEdit={onClickEdit}
                 data={record}
               />
-            </>
+            // </>
           )}
           {role == "HEADOFDEPART" && (
-            <>
+            // <>
               <Record
-                key={record.id}
+                key={idx}
                 btnsLabel={userBtns.HeadOfDepart}
                 role={role}
                 onClickEdit={onClickEdit}
                 data={record}
               />
-            </>
+            // </>
           )}
         </>
       )
@@ -112,9 +121,9 @@ const Body = ({ onClickEdit, role }) => {
           {/* <tbody className="flex flex-col items-center justify-between overflow-y-scroll w-full"> */}
 
           {!loading ? (
-            recordsData.map((record) => getRecord(record))
+            recordsData.map((record, idx) => getRecord(record, idx))
           ) : (
-            <h3>Loading</h3>
+            <em>Loading</em>
           )}
           {/* { setTimeout(() => {recordsData.map(
            (record) => getRecord(record))}, 100)
@@ -126,6 +135,7 @@ const Body = ({ onClickEdit, role }) => {
           {/* </tbody> */}
         </table>
       </div>
+      <Pagination fetchRecords={fetchRecords} pageCount={pageCount}/>
     </>
   );
 };

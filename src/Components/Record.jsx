@@ -22,10 +22,10 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
     <>
       <tr className={`${selected ? "bg-gray-300" : "bg-navGray"} text-center`}>
         <td className="py-2 px-6 text-left rounded-l-lg">{data.patient_id} </td>
-        <td className="py-2 px-6"> Order Order Order</td>
-        <td className="py-2 px-6">Patient</td>
-        <td className="py-2 px-6">Pending</td>
-        <td className="py-2 px-6">Radiologist</td>
+        <td className="py-2 px-6"> {data.physician_order}</td>
+        <td className="py-2 px-6">{data.addedat}</td>
+        <td className="py-2 px-6">{data.status}</td>
+        <td className="py-2 px-6">{data.radiologist_id ? (data.radiologist_fname, " ", data.radiologist_lname) : "TO BE ASSIGNED"}</td>
         <td className="h-full w-40 py-2 px-1 text-right">
           <div className="flex justify-end  p-0 m-0">
             <div className="mx-2 inline-block">

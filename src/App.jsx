@@ -8,7 +8,7 @@ import Button from "./Components/Button";
 import Search from "./Components/Search";
 import Body from "./Components/Body";
 import Footer from "./Components/Footer";
-import Pagination from "./Components/Pagination";
+// import Pagination from "./Components/Pagination";
 import AddForm from "./Components/AddForm";
 import Authenticate from "./Components/Authenticate";
 // import axiosConfig from "./lib/axios.config";
@@ -110,8 +110,8 @@ function App() {
                       >
                         <div className="flex flex-wrap justify-between mx-6 my-1">
                           <div className="flex justify-start">
-                            {userBtns.Physician.map((label) => (
-                              <div className="my-2 mx-1">
+                            {userBtns.Physician.map((label, idx) => (
+                              <div key={idx} className="my-2 mx-1">
                                 <Button
                                   toggle={false}
                                   onClick={showPopup}
@@ -125,7 +125,7 @@ function App() {
                           </div>
                         </div>
                         <Body onClickEdit={showPopup} role={role} />
-                        <Pagination />
+                        {/* <Pagination /> */}
                       </div>
                     </>
                   )}
