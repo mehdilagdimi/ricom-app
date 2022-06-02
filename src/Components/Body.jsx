@@ -23,6 +23,9 @@ const Body = ({ onClickEdit, role }) => {
 
   const fetchRecords = async (currentPage = 0) => {
     console.log(currentPage)
+    if(role === "ADMIN"){
+      return 
+    }
     await axios
       .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}`, { withCredentials: true })
       .then((resp) => {
@@ -35,14 +38,12 @@ const Body = ({ onClickEdit, role }) => {
         let total = parseInt(resp.data.recordsTotal);
         // console.log(total)
         setPageCount(Math.ceil(total / limit));
-      });
+      }).catch(e => console.log(e));
       // return total;
   };
 
   useEffect(() => {
-    fetchRecords();
-    console.log(pageCount);
-    // setUser(userToCommWith.get(user))
+      fetchRecords();
   }, [userID]);
 
   const getRecord = (record, idx) => {
