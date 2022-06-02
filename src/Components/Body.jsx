@@ -17,23 +17,33 @@ const Body = ({ onClickEdit, role }) => {
   const userID = window.sessionStorage.getItem("ricomUserID");
   const [recordsData, setRecordsData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [pageCount, setpageCount] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
 
-  const limit = 10;
+  const limit = 7;
 
   const fetchRecords = async (currentPage = 0) => {
+    console.log(currentPage)
     await axios
-      .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}}`, { withCredentials: true })
+      .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}`, { withCredentials: true })
       .then((resp) => {
         // console.log(resp.data.data[0].id);
+        // console.log(resp.data.data);
         console.log(resp.data.recordsTotal);
+        // console.log(resp.data.data.length);
         setRecordsData(resp.data.data);
         setLoading(false);
         let total = parseInt(resp.data.recordsTotal);
-        setpageCount(Math.ceil(total / limit));
+        // console.log(total)
+        setPageCount(Math.ceil(total / limit));
       });
       // return total;
   };
+
+  useEffect(() => {
+    fetchRecords();
+    console.log(pageCount);
+    // setUser(userToCommWith.get(user))
+  }, [userID]);
 
   const getRecord = (record, idx) => {
       return (
@@ -54,17 +64,6 @@ const Body = ({ onClickEdit, role }) => {
               <Record
                 key={idx}
                 btnsLabel={userBtns.Admin}
-                role={role}
-                onClickEdit={onClickEdit}
-                data={record}
-              />
-            // </>
-          )}
-          {role == "PHYSICIAN" && (
-            // <>
-              <Record
-                key={idx}
-                btnsLabel={userBtns.Physician}
                 role={role}
                 onClickEdit={onClickEdit}
                 data={record}
@@ -96,11 +95,6 @@ const Body = ({ onClickEdit, role }) => {
         </>
       )
   };
-
-  useEffect(() => {
-    fetchRecords();
-    // setUser(userToCommWith.get(user))
-  }, [userID]);
 
   return (
     <>
