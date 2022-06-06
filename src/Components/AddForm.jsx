@@ -11,7 +11,7 @@ const AddForm = ({role }) => {
 // console.log(window.sessionStorage.getItem("ricomUserID"));
   const fetchPatientsIds = async () => {
     await axios
-      .get("http://localhost/ricom%20api/api/users/getPatientById/", {
+      .get("/api/users/getPatientById/", {
         withCredentials: true,
       })
       .then((resp) => {
@@ -51,14 +51,14 @@ const AddForm = ({role }) => {
     if (text.length > 0) {
       matches = patients_id.filter((id) => {
         const regex = new RegExp(`${text}`, "gi");
-        // console.log(id)
         return id.match(regex);
       });
     }
-    // console.log("match", matches)
     setSuggestions(matches);
     setValue(text);
   };
+
+  
   const addHandler =  async (e) => {
     e.preventDefault();
     await storeOrder(e);

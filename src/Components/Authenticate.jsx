@@ -31,20 +31,22 @@ const Authenticate = ({ toggleLogin, setRole}) => {
         withCredentials : true
       })
       .then((response) => {
-        console.log(response.data.response);     
+        console.log(response.data.response); 
+        console.log("user ID" , response.data.userID)
+
         if (response.data.response == "Invalid credentials") {
           toggleLogin(false);
         } else if (response.data.response == "Access allowed") {
           toggleLogin(true);
           setRole(response.data.role);
           
-          // console.log(response.data.userID)
-          if(!window.sessionStorage["ricomUserID"]){
-          // if(!window.sessionStorage["ricomUserID"]){
+          if(window.sessionStorage["ricomUserID"]){
+            window.sessionStorage.setItem("ricomUserID", "");
+            setUserID(response.data.userID);
+          } else {
             setUserID(response.data.userID);
           }
         }
-        // navigate('/')
       });
   };
   return (

@@ -27,6 +27,7 @@ function App() {
     Radiologist: ["Done", "Show Study"],
     Physician: ["Add Order"],
     Admin: ["Add User"],
+    HeadOfDepart: ["Show Study"],
   };
 
   const [loggedIn, setLogin] = useState(false);
@@ -41,7 +42,6 @@ function App() {
     if(loggedIn == false){
       const persistlogin = async () => {
         await axios
-          // .get(`/api/authenticate/validate_jwt/${role}/`,  
           .get(`/api/authenticate/validate_jwt/${role}/`,  
           {
             withCredentials : true
@@ -87,7 +87,28 @@ function App() {
     setShowForm(true);
     setBlur("blur-sm");
   };
+  const showDashboardBtns = () => {
+    const btn =  (label, idx) => (
+    <div key={idx} className="my-2 mx-1">
+        <Button
+          toggle={false}
+          onClick={showPopup}
+          label={label}
+        />
+      </div>
+      );
+      
+    if(role === "PHYSICIAN"){
+      return userBtns.Physician.map((label, idx) => (btn(label, idx)));
+    } else if (role === "RADIOLOGIST"){
+      return userBtns.Radiologist.map((label, idx) => (btn(label, idx)));
+    } else if (role === "HEADOFDEPART"){
+      return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx)));
+    } else if (role === "ADMIN"){
+      return userBtns.Admin.map((label, idx) => (btn(label, idx)));
+    }
 
+  }
 
   return (
     <>
@@ -114,15 +135,9 @@ function App() {
                       >
                         <div className="flex flex-wrap justify-between mx-6 my-1">
                           <div className="flex justify-start">
-                            {userBtns.Physician.map((label, idx) => (
-                              <div key={idx} className="my-2 mx-1">
-                                <Button
-                                  toggle={false}
-                                  onClick={showPopup}
-                                  label={label}
-                                />
-                              </div>
-                            ))}
+                            {
+                            showDashboardBtns()
+                            }
                           </div>
                           <div className="my-2">
                             <Search />

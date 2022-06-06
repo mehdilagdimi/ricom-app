@@ -23,11 +23,17 @@ const Body = ({ onClickEdit, role }) => {
 
   const fetchRecords = async (currentPage = 0) => {
     console.log(currentPage)
+    console.log(userID)
     if(role === "ADMIN"){
       return 
     }
     await axios
-      .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}`, { withCredentials: true })
+      .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}`, { 
+        header : {
+          'Content-Type' : 'application/json'
+        },
+        withCredentials: true 
+      })
       .then((resp) => {
         // console.log(resp.data.data[0].id);
         // console.log(resp.data.data);

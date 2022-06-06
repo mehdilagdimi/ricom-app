@@ -16,15 +16,13 @@ const [currentPage, setCurrentPage] = useState(0)
 
   const onPageClick = (data) => {
     console.log(pageCount);
-
-    // console.log(data.selected);
     setCurrentPage(data.selected)
   }
 
   return (
     <ReactPaginate
-        previousLabel={"<<"}
-        nextLabel={">>"}
+        previousLabel={"<"}
+        nextLabel={">"}
         breakLabel={"..."}
         pageCount={pageCount}
         marginPagesDisplayed={2}
@@ -39,7 +37,7 @@ const [currentPage, setCurrentPage] = useState(0)
         nextLinkClassName={"flex justify-center items-center rounded-lg w-10 h-10"}
         breakClassName={"bg-navGray m-2 text-lg font-bold leading-tight shadow-md transition duration-150 ease-in-out hover:bg-appPink hover:text-white hover:shadow-lg"}
         breakLinkClassName={"flex justify-center items-center rounded-lg w-10 h-10"}
-        activeClassName={"focus:bg-appPink focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-appPink active:text-white active:shadow-lg"}
+        activeClassName={"bg-appPink text-white shadow-lg"}
       />
     // <div className="flex w-full justify-center items-center relative bottom-0 mt-3 mb-10 mx-auto">
     //   <nav>
