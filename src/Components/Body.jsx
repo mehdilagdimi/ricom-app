@@ -12,7 +12,7 @@ const Body = ({ onClickEdit, role }) => {
     Admin: ["UPDATE", "ARCHIVE"],
     Radiologist: ["REPORT", "DONE"],
     Physician: ["REPORT", "EDIT"],
-    HeadOfDepart: ["ASSIGN", "VIEW"],
+    HeadOfDepart: ["VIEW", "ASSIGN"],
   };
   const userID = window.sessionStorage.getItem("ricomUserID");
   const [recordsData, setRecordsData] = useState(null);

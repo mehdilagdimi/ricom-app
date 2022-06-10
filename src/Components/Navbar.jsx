@@ -16,7 +16,7 @@ export const Navbar = ({ pages, setLogin }) => {
         if(window.sessionStorage.getItem("ricomUserId")){
           window.sessionStorage.setItem("ricomUserId", "");
         }
-        // window.location.reload();
+        window.location.reload();
         // console.log(response.data);
       })
       }

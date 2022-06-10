@@ -84,7 +84,11 @@ function App() {
   }
   
   const showPopup = async () => {
-    setShowForm(true);
+    if (role !== "HEADOFDEAPRT"){
+      setShowForm(true);
+    } else {
+      alert ("Navigating to study")
+    }
     setBlur("blur-sm");
   };
   const showDashboardBtns = () => {

@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { updateRadID } from "../redux/recordSlice";
+
 import AddForm from "./AddForm";
 import Button from "./Button";
 import Report from "./Report";
@@ -8,6 +12,17 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selected, setSelected] = useState(false);
+  const record = useSelector ((state) => state.record)
+
+  const dispatch = useDispatch();
+
+
+  const selectReport = (e) => {
+    let order_id =  data.id;
+    dispatch(updateRadID({ order_id}))
+    onClickEdit(e)
+    // console.log(report);
+  };
   const getReport = (report) => {
     // console.log(report);
   };
@@ -37,7 +52,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
               />
             </div>
             <div className="mx-2 inline-block">
-              <Button label={btnsLabel[1]} onClick={onClickEdit} />
+              <Button label={btnsLabel[1]} onClick={selectReport} />
             </div>
           </div>
         </td>
