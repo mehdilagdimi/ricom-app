@@ -1,6 +1,10 @@
 import axios from "axios";
+
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import useLocalStorage from "../Custom hooks/useLocalStorage";
+
 import Button from "./Button";
 
 const AddForm = ({ role }) => {
@@ -11,7 +15,19 @@ const AddForm = ({ role }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [patients_id, setPatientsId] = useLocalStorage("patientsId", []);
   const [radiologists, setRadiologists] = useLocalStorage("radiologists", []);
+  const [radIDs, setRadiologistsID] = useLocalStorage("radiologists_id", []);
   // console.log(window.sessionStorage.getItem("ricomUserID"));
+  const record = useSelector ((state) => state.record)
+  // const { order_id, } = record
+
+  useEffect(() => {
+    if(role === "HEADOFDEPART" ){
+      if(record.physician_lname !== undefined){
+        setValue(record.physician_lname);
+      }
+    }
+  }, [role])
+  
   const fetchPatientsIds = async () => {
     await axios
       .get("/api/users/getPatientById/", {
@@ -37,18 +53,20 @@ const AddForm = ({ role }) => {
       .then((resp) => {
         let radiologists = resp.data.radiologists;
         let names = [];
+        let ids = [];
         radiologists.forEach((r_obj) => {
           // names.push(r_obj.fname.concat(" ", r_obj.lname));
           names.push(r_obj.lname);
+          ids.push(r_obj.id);
         });
 
         setRadiologists(names);
+        setRadiologistsID(ids);
       });
   };
 
-  const storeOrder = async (e) => {
+  const storeOrder = async () => {
     const userID = window.sessionStorage.getItem("ricomUserID");
-    // await axios.post("http://localhost/ricom%20api/api/orders/storeOrder/", {
     await axios
       .post(
         "/api/orders/storeOrder/",
@@ -68,27 +86,28 @@ const AddForm = ({ role }) => {
         window.location.reload();
       });
   };
-  const assignRadiologist = async (e) => {
+
+  const assignRadiologist = async (radID) => {
     const userID = window.sessionStorage.getItem("ricomUserID");
     await axios
       .post(
-        "/api/orders/setRadiologist/",
+        "/api/orders/assignRadiologist/",
         {
           radID: radID,
-          orderID: value,
-          order: value2,
+          orderID: record.order_id,
         },
         { withCredentials: true }
       )
       .then((resp) => {
         // console.log(resp.data)
-        if (resp.data.msg == "Order added successfully") {
+        if (resp.data.msg == "Assigned Radiologist successfully") {
         } else {
-          alert("Failed to add order");
+          alert("Failed to assign radiologist");
         }
         window.location.reload();
       });
   };
+
   //adaptible fetching data for autocomplet search functionality
   const fetchData = async (role) => {
     if (role === "PHYSICIAN") {
@@ -127,9 +146,14 @@ const AddForm = ({ role }) => {
   const addHandler = async (e) => {
     e.preventDefault();
     if (role === "PHYSICIAN") {
-      await storeOrder(e);
+      await storeOrder();
     } else if (role === "HEADOFDEPART") {
-      await assignRadiologist(e);
+      // let rad = radiologists.find(obj => obj.lname === value3)
+      let idx = radiologists.indexOf(value3);
+      // console.log(idx)
+      let radID = radIDs[idx];
+      console.log(radIDs[idx])
+      await assignRadiologist(radID);
     };
   }
   // useEffect(() => {
@@ -162,7 +186,7 @@ const AddForm = ({ role }) => {
                 (() => {
                   setTimeout(() => {
                     setSuggestions([]);
-                  }, 100);
+                  }, 100)
                 }) : null
               }
             />

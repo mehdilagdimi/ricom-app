@@ -28,7 +28,7 @@ const Body = ({ onClickEdit, role }) => {
       return 
     }
     await axios
-      .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}`, { 
+      .get(`/api/orders/getOrders/${userID}/${currentPage}/${limit}/${role}`, { 
         header : {
           'Content-Type' : 'application/json'
         },
@@ -38,7 +38,7 @@ const Body = ({ onClickEdit, role }) => {
         // console.log(resp.data.data[0].id);
         // console.log(resp.data.data);
         console.log(resp.data.recordsTotal);
-        // console.log(resp.data.data.length);
+        
         setRecordsData(resp.data.data);
         setLoading(false);
         let total = parseInt(resp.data.recordsTotal);
@@ -77,7 +77,7 @@ const Body = ({ onClickEdit, role }) => {
               />
             // </>
           )}
-          {role == "Radiologist" && (
+          {role == "RADIOLOGIST" && (
             // <>
               <Record
                 key={idx}

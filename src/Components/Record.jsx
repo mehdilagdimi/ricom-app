@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateRadID } from "../redux/recordSlice";
+import { updateOrdID, updatePhysicianName } from "../redux/recordSlice";
 
 import AddForm from "./AddForm";
 import Button from "./Button";
@@ -12,30 +12,26 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selected, setSelected] = useState(false);
-  const record = useSelector ((state) => state.record)
 
   const dispatch = useDispatch();
 
 
   const selectReport = (e) => {
-    let order_id =  data.id;
-    dispatch(updateRadID({ order_id}))
+    dispatch(updateOrdID({ order_id: data.id }))
+    dispatch(updatePhysicianName({ physician_lname : data.physician_lname }))
+
     onClickEdit(e)
-    // console.log(report);
   };
+
   const getReport = (report) => {
     // console.log(report);
   };
-  // console.log(btnsLabel[0]);
-  //   const onClick = (e) => {
-  //     onClickEdit(e)
-  // console.log(e)
-  //   }
+
   useEffect(() => {}, [selected]);
 
   return (
     <>
-      <tr className={`${selected ? "bg-gray-300" : "bg-navGray"} text-center`}>
+      <tr className={`${selected ? "bg-pink-100" : "bg-navGray"} text-center`}>
         <td className="py-2 px-6 text-left rounded-l-lg">{data.patient_id} </td>
         <td className="py-2 px-6"> {data.physician_order}</td>
         <td className="py-2 px-6">{data.addedat}</td>
