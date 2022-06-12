@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updateOrdID, updatePhysicianName } from "../redux/recordSlice";
 
-import AddForm from "./AddForm";
 import Button from "./Button";
 import Report from "./Report";
 
@@ -53,7 +52,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
           </div>
         </td>
       </tr>
-      {showReport && <Report user={role} getReport={getReport} />}
+      {showReport && <Report role={role} getReport={getReport} orderID={data.id}/>}
     </>
   );
 };

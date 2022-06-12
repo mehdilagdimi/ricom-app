@@ -2,10 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 
-import Button from "./Button";
 import Pagination from "./Pagination";
 import Record from "./Record";
-import Report from "./Report";
 
 const Body = ({ onClickEdit, role }) => {
   const userBtns = {
@@ -38,7 +36,7 @@ const Body = ({ onClickEdit, role }) => {
         // console.log(resp.data.data[0].id);
         // console.log(resp.data.data);
         console.log(resp.data.recordsTotal);
-        
+
         setRecordsData(resp.data.data);
         setLoading(false);
         let total = parseInt(resp.data.recordsTotal);
