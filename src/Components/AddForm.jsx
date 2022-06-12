@@ -1,7 +1,9 @@
 import axios from "axios";
 
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { triggerRefresh } from "../redux/recordSlice"
 
 import useLocalStorage from "../Custom hooks/useLocalStorage";
 
@@ -19,6 +21,7 @@ const AddForm = ({ role }) => {
   // console.log(window.sessionStorage.getItem("ricomUserID"));
   const record = useSelector ((state) => state.record)
   // const { order_id, } = record
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if(role === "HEADOFDEPART" ){
@@ -104,7 +107,7 @@ const AddForm = ({ role }) => {
         } else {
           alert("Failed to assign radiologist");
         }
-        window.location.reload();
+        // window.location.reload();
       });
   };
 
@@ -147,6 +150,7 @@ const AddForm = ({ role }) => {
     e.preventDefault();
     if (role === "PHYSICIAN") {
       await storeOrder();
+      // dispatch(triggerRefresh())
     } else if (role === "HEADOFDEPART") {
       // let rad = radiologists.find(obj => obj.lname === value3)
       let idx = radiologists.indexOf(value3);

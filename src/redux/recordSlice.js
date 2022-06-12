@@ -10,7 +10,8 @@ export const recordSlice = createSlice({
         physician_order : null,
         addedat : null,
         status : null,
-        radiologist_id : null
+        radiologist_id : null,
+        refresh : false
     },
     reducers : {
         updateRadID : (state, action) => {
@@ -21,10 +22,13 @@ export const recordSlice = createSlice({
         },
         updatePhysicianName : (state, action) => {
             state.physician_lname = action.payload.physician_lname
+        },
+        triggerRefresh : (state) => {
+            state.refresh = !state.refresh
         }
     }
 })
 
-export const { updateRadID, updateOrdID, updatePhysicianName } = recordSlice.actions;
+export const { updateRadID, updateOrdID, updatePhysicianName, triggerRefresh } = recordSlice.actions;
 
 export default recordSlice.reducer;

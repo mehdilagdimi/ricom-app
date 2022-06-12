@@ -21,7 +21,7 @@ const Report = ({ role, getReport, orderID }) => {
   }, [physReport, radReport])
   useEffect(() => {
     const fetchReports = async () => {
-      console.log(orderID)
+      // console.log(orderID)
       await axios
         .get(
           `/api/reports/getReports/${orderID}`,
@@ -30,8 +30,8 @@ const Report = ({ role, getReport, orderID }) => {
         .then((resp) => {
           // console.log(resp.data)
           if (resp.data.msg == "Reports fetched successfully") {
-            console.log(resp.data.data.reportphysician)
-            console.log(resp.data.data.reportradiologist)
+            // console.log(resp.data.data.reportphysician)
+            // console.log(resp.data.data.reportradiologist)
             setPhysReport(resp.data.data.reportphysician)
             setRadReport(resp.data.data.reportradiologist)
           } else {
@@ -90,7 +90,7 @@ const Report = ({ role, getReport, orderID }) => {
 
   const reportHandler = async (e) => {
     e.preventDefault();
-    console.log("test")
+    // console.log("test")
     await storeReport();
   }
 

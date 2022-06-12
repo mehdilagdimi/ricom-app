@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import useSessionStorage from "./Custom hooks/useSessionStorage.js";
 import useLocalStorage from "./Custom hooks/useLocalStorage.js";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+
 import "./App.css";
 import Button from "./Components/Button";
 import Search from "./Components/Search";
@@ -18,13 +21,13 @@ import Delay from "./Components/helpers/Delay";
 function App() {
   // axiosConfig();
   const pages = new Map([
-    ["physician", ["Examination Orders"]],
-    ["radiologist", ["Examination Order"]],
-    ["headDepart", ["Examination Order"]],
-    ["admin", ["Users", "DICOM"]],
+    ["PHYSICIAN", ["Examination Orders"]],
+    ["RADIOLOGIST", ["Examination Order"]],
+    ["HEADOFDEPART", ["Examination Order"]],
+    ["ADMIN", ["Users", "DICOM"]],
   ]);
   const userBtns = {
-    Radiologist: ["Done", "Show Study"],
+    Radiologist: ["Show Study"],
     Physician: ["Add Order"],
     Admin: ["Add User"],
     HeadOfDepart: ["Show Study"],
@@ -132,7 +135,7 @@ function App() {
                     <Authenticate toggleLogin={setLogin} setRole={setRole} />
                   ) : (
                     <>
-                      <Navbar setLogin={setLogin} pages={navPages.get("physician")} />
+                      <Navbar setLogin={setLogin} pages={navPages.get(role)} />
 
                       <div
                         className={`container relative ${blurClass} mx-auto my-auto flex-col w-5/6 pb-2`}
