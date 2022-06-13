@@ -101,44 +101,49 @@ const Body = ({ onClickEdit, role }) => {
           {role == "PHYSICIAN" && (
             <> 
               <Record
-                key={idx}
+                key={record.id}
                 btnsLabel={userBtns.Physician}
                 role={role}
                 onClickEdit={onClickEdit_}
                 data={record}
+
+                
               />
             </>
           )}
           {role == "ADMIN" && (
             // <>
               <Record
-                key={idx}
+                key={record.id}
                 btnsLabel={userBtns.Admin}
                 role={role}
                 onClickEdit={onClickEdit_}
                 data={record}
+
               />
             // </>
           )}
           {role == "RADIOLOGIST" && (
             // <>
               <Record
-                key={idx}
+                key={record.id}
                 btnsLabel={userBtns.Radiologist}
                 role={role}
                 onClickEdit={onClickEdit_}
                 data={record}
+
               />
             // </>
           )}
           {role == "HEADOFDEPART" && (
             // <>
               <Record
-                key={idx}
+                key={record.id}
                 btnsLabel={userBtns.HeadOfDepart}
                 role={role}
                 onClickEdit={onClickEdit_}
                 data={record}
+
               />
             // </>
           )}

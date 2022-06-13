@@ -1,5 +1,5 @@
 
-const Button = ({ label, onClick, type}) => {
+const Button = ({ label, onClick, archived, type}) => {
   // const [focus, setFocus] = useState(() => ({
   //   active: false,
   //   addFocus:
@@ -14,7 +14,10 @@ const Button = ({ label, onClick, type}) => {
       classNames.forEach(clssName => event.currentTarget.classList.toggle(clssName))
       classNames2.forEach(clssName => event.currentTarget.classList.toggle(clssName))
   
+    } else if(label === "ARCHIVE"){
+      // return
     }
+    
    
     // setFocus(() => ({
     //   active: !focus.active,
@@ -27,11 +30,10 @@ const Button = ({ label, onClick, type}) => {
     <button
       type="submit"
       onClick={onCLICK}
-      className={`bg-black text-appPink px-6 py-2.5 text-md leading-tight uppercase rounded-md shadow-md transition duration-150 
-      ease-in-out hover:bg-appPink hover:text-white hover:shadow-lg 
-    
-  
-      active:bg-appPink active:text-white active:shadow-lg`} >
+      // disabled={false}
+      disabled={archived ? true : false}
+      className={`${!archived ? 'bg-black text-appPink hover:bg-appPink hover:text-white hover:shadow-lgactive:bg-appPink active:text-white active:shadow-lg' : 'bg-gray-200 text-gray-500'} 
+      px-6 py-2.5 text-md leading-tight uppercase rounded-md shadow-md transition duration-150 ease-in-out `} >
       {label}
     </button>
   );
