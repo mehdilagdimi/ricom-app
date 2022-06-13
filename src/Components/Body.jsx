@@ -22,6 +22,9 @@ const Body = ({ onClickEdit, role }) => {
   const [pageCount, setPageCount] = useState(0);
   const [status, setStatus] = useState("");
   const { refresh } = useSelector((state) => state.record)
+
+  const record = useSelector((state) => state.record)
+
   
 
   const limit = 7;
@@ -79,10 +82,11 @@ const Body = ({ onClickEdit, role }) => {
 
   useEffect(() => {
       fetchRecords();
-      console.log(refresh)
+      // console.log(refresh)
+      console.log(record.order_id)
   }, [userID, status, refresh]);
 
-  const getRecord = (record, idx) => {
+  const getRecord = (record) => {
     const onClickEdit_ = (e) => {
       if(role !== "ADMIN" && role !== "RADIOLOGIST"){
         onClickEdit(e)
@@ -192,7 +196,7 @@ const Body = ({ onClickEdit, role }) => {
           {/* <tbody className="flex flex-col items-center justify-between overflow-y-scroll w-full"> */}
 
           {!loading ? (
-            recordsData.map((record, idx) => getRecord(record, idx))
+            recordsData.map((record) => getRecord(record))
           ) : (
             <em>Loading</em>
           )}

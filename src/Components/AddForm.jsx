@@ -27,7 +27,7 @@ const AddForm = ({ role, setShowForm }) => {
   // console.log(window.sessionStorage.getItem("ricomUserID"));
   const record = useSelector((state) => state.record);
   // const { order_id, } = record
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (role === "HEADOFDEPART") {
@@ -35,6 +35,8 @@ const AddForm = ({ role, setShowForm }) => {
         setValue(record.physician_lname);
       }
     }
+
+    console.log(record.order_id)
   }, [role]);
 
   const fetchPatientsIds = async () => {

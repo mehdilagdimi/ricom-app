@@ -15,6 +15,7 @@ const Button = ({ label, onClick, archived, type}) => {
       classNames2.forEach(clssName => event.currentTarget.classList.toggle(clssName))
   
     } else if(label === "ARCHIVE"){
+      
       // return
     }
     

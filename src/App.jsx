@@ -22,8 +22,8 @@ function App() {
   // axiosConfig();
   const pages = new Map([
     ["PHYSICIAN", ["Examination Orders"]],
-    ["RADIOLOGIST", ["Examination Order"]],
-    ["HEADOFDEPART", ["Examination Order"]],
+    ["RADIOLOGIST", ["Examination Orders"]],
+    ["HEADOFDEPART", ["Examination Orders"]],
     ["ADMIN", ["Users", "DICOM"]],
   ]);
   const userBtns = {

@@ -22,7 +22,9 @@ export const Navbar = ({ pages, setLogin }) => {
   };
 
   const getPath = (page) => {
+    // console.log(page)
     if(page === "Users" || page === "Examination Orders"){
+      console.log(page)
       return "/";
     } else if (page === "DICOM"){
       return "/DICOM";
