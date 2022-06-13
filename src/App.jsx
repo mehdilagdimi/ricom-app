@@ -10,6 +10,7 @@ import "./App.css";
 import Button from "./Components/Button";
 import Search from "./Components/Search";
 import Body from "./Components/Body";
+import DicomPath from "./Components/DicomPath"
 import Footer from "./Components/Footer";
 // import Pagination from "./Components/Pagination";
 import AddForm from "./Components/AddForm";
@@ -167,7 +168,21 @@ function App() {
           ></Route>
           <Route path="/DICOM" element={
             <>
-            
+            <div
+                  className={`w-full flex flex-col justify-between items-center relative min-h-screen  ${(!loggedIn ? `bg-navGray` : 'bg-white')} font-bahnschrift`}
+                  onClick={() => showForm && (setShowForm(false), setBlur(""))}
+                >
+            {!loggedIn ? (
+                    <Authenticate toggleLogin={setLogin} setRole={setRole} />
+                  ) : (
+                    <>
+                <Navbar setLogin={setLogin} pages={navPages.get(role)} />    
+                <DicomPath ></DicomPath>
+              </>
+              )}
+
+            {loggedIn && <Footer /> }
+            </div>
             </>
           }
           ></Route>

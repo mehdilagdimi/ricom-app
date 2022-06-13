@@ -19,6 +19,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const dispatch = useDispatch();
 
   const selectReport = (e) => {
+    // archive();
     dispatch(updateOrdID({ order_id: data.id }));
     dispatch(updatePhysicianName({ physician_lname: data.physician_lname }));
     onClickEdit(e);
@@ -81,7 +82,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                   />
                 </div>
                 <div className="mx-2 inline-block">
-                  <Button label={btnsLabel[1]} onClick={selectReport} />
+                  <Button label={btnsLabel[1]} archived={data.status === "DONE" ? true : false} onClick={selectReport} />
                 </div>
               </div>
             </td>
@@ -112,7 +113,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                     )}
                   />
                 </div>
-                <div className="mx-2 inline-block ">
+                <div className="mx-2 inline-block">
                   <Button
                     label={btnsLabel[1]}
                     onClick={archive}

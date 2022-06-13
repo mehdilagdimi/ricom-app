@@ -314,7 +314,7 @@ const AddForm = ({ role, setShowForm }) => {
         <>
           <div className="relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center">
             <label htmlFor="name" className="mx-4">
-              Firt Name
+              First Name
             </label>
             <input
               autoComplete="on"
