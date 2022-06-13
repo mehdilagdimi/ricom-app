@@ -80,8 +80,10 @@ function App() {
       persistlogin();
     }
     // console.log(userID)
-  }, [])
+  }, [showForm])
   
+
+
   const displayDashboardButtons = () => {
 
   }
@@ -162,6 +164,12 @@ function App() {
                 {/* {showForm && <AddForm getInput={(value) => setValue(value)} role={role} />} */}
               </>
             }
+          ></Route>
+          <Route path="/DICOM" element={
+            <>
+            
+            </>
+          }
           ></Route>
         </Routes>
       </Router>

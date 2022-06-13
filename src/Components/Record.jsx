@@ -57,12 +57,13 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
       {showReport && <Report role={role} getReport={getReport} orderID={data.id}/>}
         </>
       )
+      
     } else {
       return (
       <>
                   <tr className={`${selected ? "bg-pink-100" : "bg-navGray"} text-center`}>
       <td className="py-2 px-6 text-left rounded-l-lg">{data.id} </td>
-      <td className="py-2 px-6"> {(data.fname, "",  data.lname)}</td>
+      <td className="py-2 px-6"> {(data.fname.concat(" ", data.lname))}</td>
       <td className="py-2 px-6">{data.role}</td>
       <td className="py-2 px-6">{data.email}</td>
       <td className="py-2 px-6">{data.createdat}</td>

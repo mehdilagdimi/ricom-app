@@ -36,6 +36,7 @@ const Authenticate = ({ toggleLogin, setRole}) => {
 
         if (response.data.response == "Invalid credentials") {
           toggleLogin(false);
+          alert("Invalid credentials")
         } else if (response.data.response == "Access allowed") {
           toggleLogin(true);
           setRole(response.data.role);
@@ -95,6 +96,9 @@ const Authenticate = ({ toggleLogin, setRole}) => {
                 E-Mail
               </label>
               <input
+                autoComplete="on"
+                required
+                placeholder="name@domain.com"
                 className="bg-footerGray text-white rounded-md border-2 border-appPink h-16 sm:h-12 w-full sm:w-4/5 p-4 m-4"
                 type="email"
                 value={email}
@@ -104,6 +108,8 @@ const Authenticate = ({ toggleLogin, setRole}) => {
                 Password
               </label>
               <input
+                required
+                placeholder="*****"
                 className="bg-footerGray text-white  rounded-md border-2 border-appPink h-16 sm:h-12 w-full sm:w-4/5 p-4 m-4"
                 type="password"
                 value={passw}
@@ -111,7 +117,7 @@ const Authenticate = ({ toggleLogin, setRole}) => {
               />
               <div className="m-4">
                 <button type="submit" className="py-2 px-6 bg-white text-black font-bold text-md rounded shadow-md">
-                  Log In
+                  Login
                 </button>
               </div>
             </div>
