@@ -1,5 +1,7 @@
 import Navbar from "./Components/Navbar";
 import { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router";
+
 import useSessionStorage from "./Custom hooks/useSessionStorage.js";
 import useLocalStorage from "./Custom hooks/useLocalStorage.js";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
@@ -11,6 +13,7 @@ import Button from "./Components/Button";
 import Search from "./Components/Search";
 import Body from "./Components/Body";
 import DicomPath from "./Components/DicomPath"
+import Serie from "./Components/Serie"
 import Footer from "./Components/Footer";
 // import Pagination from "./Components/Pagination";
 import AddForm from "./Components/AddForm";
@@ -28,7 +31,7 @@ function App() {
     ["ADMIN", ["Users", "DICOM"]],
   ]);
   const userBtns = {
-    Radiologist: ["Show Study"],
+    Radiologist: ["Upload Study"],
     Physician: ["Add Order"],
     Admin: ["Add User"],
     HeadOfDepart: ["Show Study"],
@@ -85,9 +88,9 @@ function App() {
   
 
 
-  const displayDashboardButtons = () => {
+  // const displayDashboardButtons = () => {
 
-  }
+  // }
   
   const showPopup = async () => {
     if (role !== "HEADOFDEAPRT"){
@@ -97,25 +100,35 @@ function App() {
     }
     setBlur("blur-sm");
   };
+
+  // const getStudyID = async () =>{
+  //   await axios.get(`/api/`, {withCredentials : true})
+  // }
+
   const showDashboardBtns = () => {
-    const btn =  (label, idx) => (
-    <div key={idx} className="my-2 mx-1">
-        <Button
-          toggle={false}
-          onClick={showPopup}
-          label={label}
-        />
-      </div>
+    // let greyOut = false;
+
+    const btn =  (label, idx, actionMethod) => (
+      <>  
+        <div key={idx} className="my-2 mx-1">
+            <Button
+              toggle={false}
+              onClick={actionMethod}
+              label={label}
+              // archived={greyOut}
+            />
+        </div>
+      </>
       );
-      
+    
     if(role === "PHYSICIAN"){
-      return userBtns.Physician.map((label, idx) => (btn(label, idx)));
+      return userBtns.Physician.map((label, idx) => (btn(label, idx, showPopup)));
     } else if (role === "RADIOLOGIST"){
-      return userBtns.Radiologist.map((label, idx) => (btn(label, idx)));
+      return userBtns.Radiologist.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
     } else if (role === "HEADOFDEPART"){
-      return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx)));
+      return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
     } else if (role === "ADMIN"){
-      return userBtns.Admin.map((label, idx) => (btn(label, idx)));
+      return userBtns.Admin.map((label, idx) => (btn(label, idx, showPopup)));
     }
 
   }
@@ -124,6 +137,7 @@ function App() {
     <>
       {/* <Link to="/"><button></button></Link> */}
       <Router>
+        {/* <Switch> */}
         <Routes>
           <Route
             path="/"
@@ -166,6 +180,7 @@ function App() {
               </>
             }
           ></Route>
+
           <Route path="/DICOM" element={
             <>
             <div
@@ -186,7 +201,30 @@ function App() {
             </>
           }
           ></Route>
+
+          <Route exact path="/study/:idstudy" element={
+            <>
+              <div
+                    className={`w-full flex flex-col justify-between items-center relative min-h-screen  ${(!loggedIn ? `bg-navGray` : 'bg-white')} font-bahnschrift`}
+                    onClick={() => showForm && (setShowForm(false), setBlur(""))}
+                  >
+              {!loggedIn ? (
+                      <Authenticate toggleLogin={setLogin} setRole={setRole} />
+                    ) : (
+                      <>
+                  <Navbar setLogin={setLogin} pages={navPages.get(role)} />    
+                  <Serie role={role}></Serie>
+                </>
+                )}
+
+              {loggedIn && <Footer /> }
+              </div>
+            </>
+          }
+          ></Route>
+
         </Routes>
+        {/* </Switch> */}
       </Router>
     </>
   );

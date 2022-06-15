@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 
 const Button = ({ label, onClick, archived, type}) => {
   // const [focus, setFocus] = useState(() => ({
@@ -5,6 +6,7 @@ const Button = ({ label, onClick, archived, type}) => {
   //   addFocus:
   //     " bg-appPink text-white shadow-lg outline-none ring-0",
   // }));
+  const navigate = useNavigate();
 
   const onCLICK = (event) => {
     onClick(event);
@@ -14,9 +16,9 @@ const Button = ({ label, onClick, archived, type}) => {
       classNames.forEach(clssName => event.currentTarget.classList.toggle(clssName))
       classNames2.forEach(clssName => event.currentTarget.classList.toggle(clssName))
   
-    } else if(label === "ARCHIVE"){
+    } else if(label === "Upload Study"){
       
-      // return
+      navigate("/pid/serie");
     }
     
    

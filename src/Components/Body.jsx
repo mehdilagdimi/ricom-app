@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { triggerRefresh } from "../redux/recordSlice"
+import { triggerRefresh, selectRecord } from "../redux/recordSlice"
 
 
 import Pagination from "./Pagination";
@@ -24,7 +24,7 @@ const Body = ({ onClickEdit, role }) => {
   const { refresh } = useSelector((state) => state.record)
 
   const record = useSelector((state) => state.record)
-
+  const dispatch = useDispatch();
   
 
   const limit = 7;
@@ -86,6 +86,8 @@ const Body = ({ onClickEdit, role }) => {
       console.log(record.order_id)
   }, [userID, status, refresh]);
 
+
+
   const getRecord = (record) => {
     const onClickEdit_ = (e) => {
       if(role !== "ADMIN" && role !== "RADIOLOGIST"){
@@ -110,7 +112,6 @@ const Body = ({ onClickEdit, role }) => {
                 role={role}
                 onClickEdit={onClickEdit_}
                 data={record}
-
                 
               />
             </>
@@ -170,7 +171,9 @@ const Body = ({ onClickEdit, role }) => {
             <th className="p-2"></th>
         </>
       )
+      
     } else {
+      
       return (
       <>
             <th className="p-2 text-left ">User ID</th>
@@ -200,13 +203,6 @@ const Body = ({ onClickEdit, role }) => {
           ) : (
             <em>Loading</em>
           )}
-          {/* { setTimeout(() => {recordsData.map(
-           (record) => getRecord(record))}, 100)
-            // <Record btnsLabel={userBtns.Admin} role ={role} onClickEdit={onClickEdit} data={record} />
-          } */}
-          {/* {
-  getRecord("test")
-} */}
           {/* </tbody> */}
         </table>
       </div>

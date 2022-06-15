@@ -37,7 +37,7 @@ const [currentPage, setCurrentPage] = useState(0)
         nextLinkClassName={"flex justify-center items-center rounded-lg w-10 h-10"}
         breakClassName={"bg-navGray m-2 text-lg font-bold leading-tight shadow-md transition duration-150 ease-in-out hover:bg-appPink hover:text-white hover:shadow-lg"}
         breakLinkClassName={"flex justify-center items-center rounded-lg w-10 h-10"}
-        activeClassName={"bg-appPink text-white shadow-lg"}
+        activeClassName={"text-white shadow-lg bg-appPink"}
       />
     // <div className="flex w-full justify-center items-center relative bottom-0 mt-3 mb-10 mx-auto">
     //   <nav>

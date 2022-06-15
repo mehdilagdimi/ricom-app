@@ -26,7 +26,7 @@ const AddForm = ({ role, setShowForm }) => {
   const [radIDs, setRadiologistsID] = useLocalStorage("radiologists_id", []);
   // console.log(window.sessionStorage.getItem("ricomUserID"));
   const record = useSelector((state) => state.record);
-  // const { order_id, } = record
+  // const { record_id, } = record
   // const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const AddForm = ({ role, setShowForm }) => {
       }
     }
 
-    console.log(record.order_id)
+    console.log(record.record_id)
   }, [role]);
 
   const fetchPatientsIds = async () => {
@@ -135,7 +135,7 @@ const AddForm = ({ role, setShowForm }) => {
         "/api/orders/assignRadiologist/",
         {
           radID: radID,
-          orderID: record.order_id,
+          orderID: record.record_id,
         },
         { withCredentials: true }
       )
@@ -386,29 +386,10 @@ const AddForm = ({ role, setShowForm }) => {
               pattern = {"[0-0]{1}[5-8]{1}[0-9]{8}"}
               onChange={
                   (e) => setUserPhone(e.currentTarget.value)
-                  // (e) => searchFor(e.currentTarget.value)
               }
-              // onBlur={
-              //   role !== "HEADOFDEPART"
-              //     ? () => {
-              //         setTimeout(() => {
-              //           setSuggestions([]);
-              //         }, 100);
-              //       }
-              //     : null
-              // }
+            
             />
-            {/* {suggestions &&
-              role !== "HEADOFDEPART" &&
-              suggestions.map((sug, i) => (
-                <div
-                  className="z-40 mx-4 w-11/12 top-1/3 mt-12 absolute py-1 pl-4 bg-white md:rounded border-gray-300 border"
-                  key={i}
-                  onClick={() => (setUserPhone(sug), setSuggestions([]))}
-                >
-                  {sug}
-                </div>
-              ))} */}
+           
 
               {/* //email */}
             <label htmlFor="name" className="mx-4">
@@ -423,30 +404,10 @@ const AddForm = ({ role, setShowForm }) => {
               placeholder = {"name@domain.com"}
               onChange={
                 (e) => setUserEmail(e.currentTarget.value)                 
-                // (e) => searchFor(e.currentTarget.value)                 
               }
-              // onBlur={
-              //   role !== "HEADOFDEPART"
-              //     ? () => {
-              //         setTimeout(() => {
-              //           setSuggestions([]);
-              //         }, 100);
-              //       }
-              //     : null
-              // }
+             
             />
-            {/* {suggestions &&
-              role !== "HEADOFDEPART" &&
-              suggestions.map((sug, i) => (
-                <div
-                  className="z-40 mx-4 w-11/12 top-1/3 mt-12 absolute py-1 pl-4 bg-white md:rounded border-gray-300 border"
-                  key={i}
-                  onClick={() => (setUserEmail(sug), setSuggestions([]))}
-                >
-                  {sug}
-                </div>
-              ))}
-               */}
+           
 
             <label htmlFor="name" className="mx-4">
               Password
@@ -459,8 +420,6 @@ const AddForm = ({ role, setShowForm }) => {
               value={userPassw}
               onChange={(e) => setUserPassw(e.currentTarget.value)}
               />
-
-
 
               <div className="flex justify-end w-full px-4">
                 <Button onClick={(e) => e.preventDefault} label="SUBMIT" />

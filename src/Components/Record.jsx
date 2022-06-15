@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateOrdID, updatePhysicianName } from "../redux/recordSlice";
+import { updateRecordID, updatePhysicianName} from "../redux/recordSlice";
 
 import Button from "./Button";
 import Report from "./Report";
@@ -13,21 +13,25 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selected, setSelected] = useState(false);
+  // const { selected } = useSelector((state) => state.record)
+
   const [archived, setArchived] = useState(false);
   // const [status, setStatus] = useState("")
 
   const dispatch = useDispatch();
 
-  const selectReport = (e) => {
+  const selectReport = (e, label) => {
     // archive();
-    dispatch(updateOrdID({ order_id: data.id }));
-    dispatch(updatePhysicianName({ physician_lname: data.physician_lname }));
-    onClickEdit(e);
+    dispatch(updateRecordID({ record_id: data.id }));
+    if(label){
+      dispatch(updatePhysicianName({ physician_lname: data.physician_lname }));
+      onClickEdit(e);
+    } else {
+      setSelected(!selected)
+    }
+    
   };
 
-  const getReport = (report) => {
-    // console.log(report);
-  };
 
   useEffect(() => {
     setArchived(data.archive);
@@ -58,7 +62,8 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
       return (
         <>
           <tr
-            className={`${selected ? "bg-pink-100" : "bg-navGray"} text-center`}
+            className={`${selected ? "bg-pink-100" : "bg-navGray"} text-center cursor-pointer`}
+            onClick = {(e) => selectReport(e)}
           >
             <td className="py-2 px-6 text-left rounded-l-lg">
               {data.patient_id}{" "}
@@ -78,17 +83,19 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                     label={btnsLabel[0]}
                     onClick={() => (
                       setShowReport(!showReport), setSelected(!selected)
+                      // setShowReport(!showReport), setSelected(!selected)
                     )}
                   />
                 </div>
                 <div className="mx-2 inline-block">
-                  <Button label={btnsLabel[1]} archived={data.status === "DONE" ? true : false} onClick={selectReport} />
+                  <Button label={btnsLabel[1]} archived={data.status === "DONE" ? true : false} onClick={(e) => selectReport(e, btnsLabel[1])} />
                 </div>
               </div>
             </td>
           </tr>
           {showReport && (
-            <Report role={role} getReport={getReport} orderID={data.id} />
+            <Report role={role} orderID={data.id} />
+            // <Report role={role} getReport={getReport} orderID={data.id} />
           )}
         </>
       );
@@ -96,7 +103,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
       return (
         <>
           <tr
-            className={`${archived ? "bg-gray-50" : "bg-navGray"} text-center`}
+            className={`${archived ? "bg-gray-50" : "bg-navGray"} text-center cursor-pointer`}
           >
             <td className="py-2 px-6 text-left rounded-l-lg">{data.id} </td>
             <td className="py-2 px-6"> {data.fname.concat(" ", data.lname)}</td>
@@ -130,7 +137,9 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
 
 ;
 
-  return <>{getTableData()}</>;
+  return <>
+         {getTableData()}
+      </>;
 };
 
 export default Record;

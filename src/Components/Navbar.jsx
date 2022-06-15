@@ -8,7 +8,7 @@ export const Navbar = ({ pages, setLogin }) => {
   // const [logoutState, setLogoutState]  = useSessionStorage(true, true);
   const logout = async () => {
     await axios
-      .get(`http://localhost/ricom%20api/api/authenticate/logout`, {
+      .get(`/api/authenticate/logout`, {
         withCredentials: true,
       })
       .then((response) => {
