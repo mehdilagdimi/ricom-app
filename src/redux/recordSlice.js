@@ -19,7 +19,7 @@ export const recordSlice = createSlice({
             state.radiologist_id = action.payload.radiologist_id
         },
         updateRecordID : (state, action) => {
-            state.order_id = action.payload.order_id
+            state.record_id = action.payload
         },
         updatePhysicianName : (state, action) => {
             state.physician_lname = action.payload.physician_lname

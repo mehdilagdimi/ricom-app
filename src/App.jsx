@@ -43,6 +43,7 @@ function App() {
   const [navPages, setNavPages] = useState(pages);
   const [showForm, setShowForm] = useState(false);
   const [blurClass, setBlur] = useState("");
+  const [orderID, setOrderID] = useState(null)
   const record = useSelector((state)=> state.record)
 
  
@@ -103,23 +104,39 @@ function App() {
   };
 
   useEffect(()=> {
-    const logstate = store.subscribe(() =>
-    console.log(store.getState()))
+    // const logstate = store.subscribe(() =>
+    // console.log(store.getState()))
+    console.log(orderID)
+    setStudyID();
+    // logstate()
+    // console.log(record.record_id)
+  }, [orderID])
 
-    logstate()
-    
-  }, [store.getState()])
+  const setStudyID = async () => {
+    console.log(orderID)
+    // return;
+    if(orderID){
+      await axios
+      .get(`/api/studies/setOrderIDStudy/${orderID}`, {withCredentials : true})
+      .then((resp) => {
+        if(resp.data.msg === "Linked Order with Study successfully"){
+          console.log("Linked Order with Study successfully")
+        } else {
+          alert("Failed linking order with study")
+        }
+      })
+    } else {
+      return
+    }
+  }
 
-  const setStudyID = async () =>{
-    // let orderID = record.record_id;
-    console.log(store.getState())
+  function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
-    return
-    await axios
-    .get(`/api/studies/setOrderIDStudy/${orderID}`, {withCredentials : true})
-    .then((resp) => {
-      console.log(resp.data.data)
-    })
+  const linkOrderToStudy = async () =>{
+    await timeout(100);
+    setOrderID(record.record_id)
   }
 
 
@@ -142,7 +159,7 @@ function App() {
     if(role === "PHYSICIAN"){
       return userBtns.Physician.map((label, idx) => (btn(label, idx, showPopup)));
     } else if (role === "RADIOLOGIST"){
-      return userBtns.Radiologist.map((label, idx) => (btn(label, idx, setStudyID)))
+      return userBtns.Radiologist.map((label, idx) => (btn(label, idx, linkOrderToStudy)))
     } else if (role === "HEADOFDEPART"){
       return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
     } else if (role === "ADMIN"){

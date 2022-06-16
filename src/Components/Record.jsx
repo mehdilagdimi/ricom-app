@@ -13,6 +13,9 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selected, setSelected] = useState(false);
+
+  const record = useSelector((state) => state.record)
+
   // const { selected } = useSelector((state) => state.record)
 
   const [archived, setArchived] = useState(false);
@@ -23,6 +26,9 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const selectReport = (e, label) => {
     // archive();
     // dispatch(updateRecordID({ record_id: data.id }));
+    dispatch(updateRecordID(data.id));
+    // console.log(data.id)
+    // console.log(record.record_id);
     if(label){
       dispatch(updatePhysicianName({ physician_lname: data.physician_lname }));
       onClickEdit(e);
@@ -35,9 +41,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
 
   useEffect(() => {
     setArchived(data.archive);
-    dispatch(updateRecordID({ record_id: data.id }));
-        // console.log(data.archive)
-    // console.log(archived)
+   
   }, [selected, data])
   
   useEffect(() => {

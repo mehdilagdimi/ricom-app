@@ -19,19 +19,38 @@ const Serie = ({ role }) => {
 
     useEffect(() => {
         // setStudyID(idstudy)
-        console.log(idstudy)
-        // console.log(record.record_id)
+        // console.log(idstudy)
+        console.log(record.record_id)
     }, [])
 
     // const redirect = () => {
     //     navigate('/DICOM', {replace : true})
     // }
 
-    const onFilesChange = (e) => {
-        let files = e.target.files;
-        let fileReader = new FileReader();
-        fileReader.readAsDataURL(files[0]);
+    const readFileAsync = file => new Promise(resolve => {
+        const reader = new FileReader()
+        reader.onload = evt => resolve(evt.target.result)
+        reader.readAsDataURL(file)
+    })
 
+    const onFilesChange = async (e) => {
+        let files = e.target.files;
+        const uploadList = []
+    //    console.log(files)
+        for (let i = 0; i < files.length; i++) {
+            uploadList.push(await readFileAsync(files[i]))
+          }
+
+        Object.entries(files).forEach(file => {
+            if(file){
+                fileReader.readAsDataURL(file)
+            }
+        })
+        // for(const file in files) {
+        //     // fileReader.readAsDataURL(file[0]), console.log(file)
+        //     console.log(file)
+        // } 
+    
         fileReader.onload = (event) => {
             setImages(event.target.result)
         }
@@ -67,7 +86,7 @@ const Serie = ({ role }) => {
               required
               type="file"
               directory="" 
-            //   webkitdirectory=""
+              webkitdirectory=""
             //   value={ctPath}
               onChange={onFilesChange}
               />
