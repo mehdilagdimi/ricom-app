@@ -7,6 +7,7 @@ import useLocalStorage from "./Custom hooks/useLocalStorage.js";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+import store from "./redux/store.js"
 
 import "./App.css";
 import Button from "./Components/Button";
@@ -42,8 +43,8 @@ function App() {
   const [navPages, setNavPages] = useState(pages);
   const [showForm, setShowForm] = useState(false);
   const [blurClass, setBlur] = useState("");
+  const record = useSelector((state)=> state.record)
 
- 
  
   useEffect(() => {
     if(loggedIn == false){
@@ -101,9 +102,26 @@ function App() {
     setBlur("blur-sm");
   };
 
-  // const getStudyID = async () =>{
-  //   await axios.get(`/api/`, {withCredentials : true})
-  // }
+  useEffect(()=> {
+    const logstate = store.subscribe(() =>
+    console.log(store.getState()))
+
+    logstate()
+    
+  }, [store.getState()])
+
+  const setStudyID = async () =>{
+    // let orderID = record.record_id;
+    console.log(store.getState())
+
+    return
+    await axios
+    .get(`/api/studies/setOrderIDStudy/${orderID}`, {withCredentials : true})
+    .then((resp) => {
+      console.log(resp.data.data)
+    })
+  }
+
 
   const showDashboardBtns = () => {
     // let greyOut = false;
@@ -124,7 +142,7 @@ function App() {
     if(role === "PHYSICIAN"){
       return userBtns.Physician.map((label, idx) => (btn(label, idx, showPopup)));
     } else if (role === "RADIOLOGIST"){
-      return userBtns.Radiologist.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
+      return userBtns.Radiologist.map((label, idx) => (btn(label, idx, setStudyID)))
     } else if (role === "HEADOFDEPART"){
       return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
     } else if (role === "ADMIN"){
@@ -167,7 +185,7 @@ function App() {
                             <Search />
                           </div>
                         </div>
-                        <Body onClickEdit={showPopup} role={role} />
+                        <Body onClickEdit={showPopup} role={role} setStudyID={setStudyID} />
                         {/* <Pagination /> */}
                       </div>
                     </>
@@ -213,7 +231,7 @@ function App() {
                     ) : (
                       <>
                   <Navbar setLogin={setLogin} pages={navPages.get(role)} />    
-                  <Serie role={role}></Serie>
+                  <Serie role={role} />
                 </>
                 )}
 

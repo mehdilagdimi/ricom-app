@@ -31,7 +31,7 @@ const Button = ({ label, onClick, archived, type}) => {
 
   return (
     <button
-      type="submit"
+      type={type ? type : "submit"}
       onClick={onCLICK}
       // disabled={false}
       disabled={archived ? true : false}

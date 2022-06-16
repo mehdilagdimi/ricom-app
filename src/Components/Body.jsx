@@ -30,8 +30,8 @@ const Body = ({ onClickEdit, role }) => {
   const limit = 7;
 
   const fetchRecords = async (currentPage = 0) => {
-    console.log(currentPage)
-    console.log(userID)
+    // console.log(currentPage)
+    // console.log(userID)
     let url = '';
     if(role === "ADMIN"){
       url = `/api/users/getUsers/${userID}/${currentPage}/${limit}/${role}`;
@@ -47,8 +47,8 @@ const Body = ({ onClickEdit, role }) => {
       })
       .then((resp) => {
         // console.log(resp.data.data[0].id);
-        console.log(resp.data.data);
-        console.log(resp.data.recordsTotal);
+        // console.log(resp.data.data);
+        // console.log(resp.data.recordsTotal);
 
         setRecordsData(resp.data.data);
         setLoading(false);
@@ -80,10 +80,12 @@ const Body = ({ onClickEdit, role }) => {
         });
   }
 
+
+
   useEffect(() => {
       fetchRecords();
       // console.log(refresh)
-      console.log(record.order_id)
+      // console.log(record.order_id)
   }, [userID, status, refresh]);
 
 
@@ -112,7 +114,7 @@ const Body = ({ onClickEdit, role }) => {
                 role={role}
                 onClickEdit={onClickEdit_}
                 data={record}
-                
+
               />
             </>
           )}

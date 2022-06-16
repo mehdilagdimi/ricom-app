@@ -22,7 +22,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
 
   const selectReport = (e, label) => {
     // archive();
-    dispatch(updateRecordID({ record_id: data.id }));
+    // dispatch(updateRecordID({ record_id: data.id }));
     if(label){
       dispatch(updatePhysicianName({ physician_lname: data.physician_lname }));
       onClickEdit(e);
@@ -35,12 +35,13 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
 
   useEffect(() => {
     setArchived(data.archive);
-    // console.log(data.archive)
+    dispatch(updateRecordID({ record_id: data.id }));
+        // console.log(data.archive)
     // console.log(archived)
-  }, [selected])
+  }, [selected, data])
   
   useEffect(() => {
-    console.log(archived)
+    // console.log(archived)
   }, [archived])
 
   const archive = async () => {
