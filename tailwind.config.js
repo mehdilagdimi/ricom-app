@@ -1,7 +1,7 @@
 module.exports = {
   important : true,
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}", "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
@@ -14,7 +14,8 @@ module.exports = {
         'bahnschrift': ['Bahnschrift', 'sans-serif'],
     },
   },
-  plugins: [],
+  plugins: [
+  ],
 }
 }
 

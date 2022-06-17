@@ -7,6 +7,9 @@ import useLocalStorage from "./Custom hooks/useLocalStorage.js";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updateStudyID } from "./redux/serieSlice"
+
 import store from "./redux/store.js"
 
 import "./App.css";
@@ -22,6 +25,7 @@ import Authenticate from "./Components/Authenticate";
 // import axiosConfig from "./lib/axios.config";
 import axios from "axios";
 import Delay from "./Components/helpers/Delay";
+// import { updateSerieID } from "./redux/serieSlice";
 
 function App() {
   // axiosConfig();
@@ -32,7 +36,7 @@ function App() {
     ["ADMIN", ["Users", "DICOM"]],
   ]);
   const userBtns = {
-    Radiologist: ["Upload Study"],
+    Radiologist: ["All Studies"],
     Physician: ["Add Order"],
     Admin: ["Add User"],
     HeadOfDepart: ["Show Study"],
@@ -44,7 +48,10 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [blurClass, setBlur] = useState("");
   const [orderID, setOrderID] = useState(null)
+  const [studyID, setStudyID] = useState(null)
+  const dispatch = useDispatch();
   const record = useSelector((state)=> state.record)
+  const serie = useSelector((state)=> state.serie)
 
  
   useEffect(() => {
@@ -103,55 +110,98 @@ function App() {
     setBlur("blur-sm");
   };
 
+  
+  // const storeStudyID = async (orderID) => {
+  //   console.log(orderID)
+  //   // return;
+  //   if(orderID){
+  //     await axios
+  //     .get(`/api/studies/setOrderIDStudy/${orderID}`, {withCredentials : true})
+  //     .then((resp) => {
+  //       if(resp.data.msg === "Linked Order with Study successfully"){
+  //         console.log("Linked Order with Study successfully")
+  //         // console.log(resp.data.serieID.id)
+  //         // setStudyID(resp.data.serieID.id);
+  //         setOrderID(orderID);
+  //         // dispatch(updateStudyID(resp.data.serieID.id))
+
+  //       } else {
+  //         alert("Failed linking order with study")
+  //       }
+  //     })
+  //   } else {
+  //     return
+  //   }
+  // }
+
   useEffect(()=> {
-    // const logstate = store.subscribe(() =>
-    // console.log(store.getState()))
-    console.log(orderID)
-    setStudyID();
-    // logstate()
-    // console.log(record.record_id)
+    // console.log(studyID)
+
+    // const getSerieID = async() => {
+    //     await axios
+    //     .get(`/api/studies/getStudyID/${orderID}`, {withCredentials : true})
+    //     .then((resp) => {
+    //       if(resp.data.msg === "Fetched Study ID successfully"){
+    //         console.log("Fetched Study ID successfully")
+    //         // console.log(resp.data.serieID.id)
+    //         setStudyID(resp.data.serieID.id);
+    //         dispatch(updateStudyID(resp.data.serieID.id))
+  
+    //       } else {
+    //         alert("Failed Fetching Study ID")
+    //       }
+    //     })     
+    //   }
+
+    //   if(orderID){
+    //     getSerieID();
+    //     // console.log(studyID)
+    //   } 
+    // console.log(serie.study_id)
+  
   }, [orderID])
+  
+  useEffect(()=>{
+    console.log("app", studyID)
+  }, [studyID])
 
-  const setStudyID = async () => {
-    console.log(orderID)
-    // return;
-    if(orderID){
-      await axios
-      .get(`/api/studies/setOrderIDStudy/${orderID}`, {withCredentials : true})
-      .then((resp) => {
-        if(resp.data.msg === "Linked Order with Study successfully"){
-          console.log("Linked Order with Study successfully")
-        } else {
-          alert("Failed linking order with study")
-        }
-      })
-    } else {
-      return
-    }
-  }
+  // function timeout(ms) {
+  //   return new Promise(resolve => setTimeout(resolve, ms));
+  // }
 
-  function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  const linkOrderToStudy = async () =>{
-    await timeout(100);
-    setOrderID(record.record_id)
-  }
+  // const linkOrderToStudy = async () =>{
+  //   await timeout(100);
+  //   // setOrderID(record.record_id)
+  //   storeStudyID(record.record_id);
+    
+  // }
+  // const getStudyID = async() =>{
+  //   await timeout(100)
+  //   return studyID
+  // }
 
 
   const showDashboardBtns = () => {
     // let greyOut = false;
 
-    const btn =  (label, idx, actionMethod) => (
-      <>  
+    const btn = (label, idx, actionMethod) => (
+      <> 
         <div key={idx} className="my-2 mx-1">
-            <Button
-              toggle={false}
-              onClick={actionMethod}
-              label={label}
-              // archived={greyOut}
-            />
+          {
+          // studyID ? 
+          <Button  
+            toggle={false}
+            onClick={actionMethod}
+            label={label}
+            // getStudyID={getStudyID}
+            // data={() => (setTimeout(function() {return (studyID)}, 1000))}                        
+            data={studyID}
+            // data={studyID}
+            // data={record.record_id}
+          />
+          // :
+          //   ""
+          }
         </div>
       </>
       );
@@ -159,7 +209,7 @@ function App() {
     if(role === "PHYSICIAN"){
       return userBtns.Physician.map((label, idx) => (btn(label, idx, showPopup)));
     } else if (role === "RADIOLOGIST"){
-      return userBtns.Radiologist.map((label, idx) => (btn(label, idx, linkOrderToStudy)))
+      // return userBtns.Radiologist.map((label, idx) => (btn(label, idx, linkOrderToStudy)))
     } else if (role === "HEADOFDEPART"){
       return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
     } else if (role === "ADMIN"){
@@ -175,7 +225,7 @@ function App() {
         {/* <Switch> */}
         <Routes>
           <Route
-            path="/"
+            exact path="/"
             element={
               <>
                 <div
@@ -202,7 +252,7 @@ function App() {
                             <Search />
                           </div>
                         </div>
-                        <Body onClickEdit={showPopup} role={role} setStudyID={setStudyID} />
+                        <Body onClickEdit={showPopup} role={role} />
                         {/* <Pagination /> */}
                       </div>
                     </>

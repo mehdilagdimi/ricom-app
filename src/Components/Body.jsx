@@ -203,7 +203,8 @@ const Body = ({ onClickEdit, role }) => {
           {!loading ? (
             recordsData.map((record) => getRecord(record))
           ) : (
-            <em>Loading</em>
+            // <em>Loading</em>
+            "Loading"
           )}
           {/* </tbody> */}
         </table>
