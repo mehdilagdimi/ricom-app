@@ -70,7 +70,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
           if (resp.data.msg === "Linked Order with Study successfully") {
             console.log("Linked Order with Study successfully");
             console.log(resp.data.serieID.id);
-            setSerieID(orderID);
+            setSerieID(resp.data.serieID.id);
             // dispatch(updateStudyID(resp.data.serieID.id))
           } else {
             alert("Failed linking order with study");
@@ -82,7 +82,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   };
 
   useEffect(() => {
-    // console.log(serieID)
+    console.log(serieID)
     if (serieID) {
       navigate(`/study/${serieID}`);
     }

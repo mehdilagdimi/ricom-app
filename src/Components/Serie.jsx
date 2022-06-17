@@ -14,8 +14,9 @@ const Serie = ({ role }) => {
   // const navigate = useNavigate();
   const [ctPath, setCtPath] = useState("");
   const [studyID, setStudyID] = useState("");
-  const { idstudy } = useParams();
+  const {idstudy } = useParams();
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true)
   const [fetchedSlices, setFetchedSlices] = useState([])
   const record = useSelector((state) => state.record);
   const uploadList = [];
@@ -24,16 +25,17 @@ const Serie = ({ role }) => {
     const fetchSlices = async () => {
       await axios
       .get(
-        `/api/studies/${idstudy}`, 
+        `/api/studies/getStudy/${idstudy}`, 
         {withCredentials : true})
       .then((resp) => {
-        console.log(resp.data)
+        console.log(resp.data.data[0])
         setFetchedSlices(resp.data.data)
+        setLoading(false)
       })
     }
 
     fetchSlices();
-  }, [idstudy]);
+  }, [idstudy, loading]);
 
   // const redirect = () => {
   //     navigate('/DICOM', {replace : true})
@@ -68,7 +70,7 @@ const Serie = ({ role }) => {
     const study = { study: images };
     let serieID = idstudy;
     console.log(serieID);
-    console.log(images);
+    // console.log(images);
     // return;
     await axios
       .post(
@@ -80,6 +82,7 @@ const Serie = ({ role }) => {
       )
       .then((resp) => {
         console.log(resp.data);
+        setLoading(false)
       });
   };
 
@@ -107,17 +110,18 @@ const Serie = ({ role }) => {
           <Button label={"SUBMIT"} type="submit" onClick={onSubmit} />
         </div>
 
-        {fetchedSlices? <div className="carousel rounded-box mt-9">
-          {fetchedSlices.map((image) => (
+        {!loading? <div className="carousel rounded-box mt-9">
+            {fetchedSlices.map((image) => (
             <>
               <div className="carousel-item">
-
+                <h3>{image.name}</h3>
                 <img
-                  src={"https://api.lorem.space/image/burger?w=400&h=300&hash=8B7BCDC2"}
+                  src={image.name}
+                  // src={"https://api.lorem.space/image/burger?w=400&h=300&hash=8B7BCDC2"}
                   alt="Burger"
                 />
 
-              </div> : 
+              </div>           
             </>
             ))}        
         </div> 
