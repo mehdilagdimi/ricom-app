@@ -24,6 +24,7 @@ const Body = ({ onClickEdit, role }) => {
   const { refresh } = useSelector((state) => state.record)
 
   const record = useSelector((state) => state.record)
+
   const dispatch = useDispatch();
   
 
@@ -191,7 +192,7 @@ const Body = ({ onClickEdit, role }) => {
 
   return (
     <>
-      <div className="overflow-auto no-scrollbar w-full h-[550px]">
+      <div className={`overflow-auto no-scrollbar w-full h-[550px]`}>
         <table className="w-full table-auto border-separate border-spacing-responsive md:border-spacing">
           {/* <thead class="flex w-full items-center justify-between mb-7"> */}
           <tr className="bg-white sticky top-0 text-center py-1 h-4 w-5/6">

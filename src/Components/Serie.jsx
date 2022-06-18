@@ -1,14 +1,17 @@
 import axios from "axios";
 import React from "react";
 
+import closeIcon from "../close_icon.png"
 import Button from "./Button";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Navigate, useParams } from "react-router-dom";
 import { data } from "autoprefixer";
+import { updateSelectedSlice } from "../redux/serieSlice";
 
 const Serie = ({ role }) => {
   // const navigate = useNavigate();
@@ -16,9 +19,13 @@ const Serie = ({ role }) => {
   const [studyID, setStudyID] = useState("");
   const {idstudy } = useParams();
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
+
   const [fetchedSlices, setFetchedSlices] = useState([])
   const record = useSelector((state) => state.record);
+  // const dispatch = useDispatch()
   const uploadList = [];
 
   useEffect(() => {
@@ -86,17 +93,32 @@ const Serie = ({ role }) => {
       });
   };
 
+  useEffect(()=>{
+
+  },[selected])
+
+  const  highlightImg = (img) => {
+    // dispatch(updateSelectedSlice(true))
+    setSelected(true);
+    setSelectedImage(img);
+  }
+  const closeImg = () => {
+    setSelected(false)
+    setSelectedImage("")
+    console.log(selected)
+  }
+
   return role === "ADMIN" || role === "PATIENT" ? (
     ((<Navigate to="/" replace />), alert("no"))
   ) : (
     <>
-      <div className="relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center ">
-        <label htmlFor="name" className="mx-4">
-          Upload Study
+      <div className={`relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center z-0 ${selected && "blur-sm"}`}>
+        <label htmlFor="name" className="mx-4 mt-4 mb-0">
+          Upload Study :
         </label>
         <input
           autoComplete="on"
-          className="mx-4 my-8  rounded-md p-4 border-gray-300 border"
+          className="mx-4 my-4 rounded-md p-4 border-gray-300 border"
           required
           type="file"
           accept=".png, .jpeg"
@@ -106,23 +128,23 @@ const Serie = ({ role }) => {
           //   value={ctPath}
           onChange={onFilesChange}
         />
-        <div className="flex flex-row justify-end">
+        <div className="flex flex-row justify-end m-4">
           <Button label={"SUBMIT"} type="submit" onClick={onSubmit} />
         </div>
 
-        {!loading? <div className="carousel rounded-box mt-9">
+          <h1 className="mx-4"><strong>PATIENT STUDY :</strong></h1>
+        {!loading? <div className="m-4 carousel rounded-box mt-9">
             {fetchedSlices.map((image) => (
             <>
               <div className="carousel-item">
-                {/* <h3>{image.img}</h3> */}
                 <img
-                  className="h-[250px]"
+                  className="h-[500px] w-[500px]"
                   key={image.id}
-    
                   // src={"git s"}
                   src={"data:image/png;base64," + image.img}
                   // src={"https://api.lorem.space/image/burger?w=400&h=300&hash=8B7BCDC2"}
-                  alt="Burger"
+                  alt={"slice" + image.id}
+                  onClick={() => highlightImg(image.img)}
                 />
 
               </div>           
@@ -133,6 +155,18 @@ const Serie = ({ role }) => {
         <em>
           Loading Images
         </em>
+        }
+
+        {selected &&
+        <>
+        {/* <div className="absolute h-0 top-0 mr-0 object-contain" onBlur={(e) => console.log(e)}> */}
+
+            <img className="absolute top-0 right-0 h-[40px] w-[40px] cursor-pointer blur-none" src={closeIcon} onClick={closeImg}/>
+          <div className="absolute flex flex-row h-0 top-0 mr-0 object-contain blur-none">
+            
+            <img className="relative inset-x-28 inset-y-8 h-[700px] blur-none" src={"data:image/png;base64," + selectedImage} />
+          </div>
+        </>
         }
 
       </div>

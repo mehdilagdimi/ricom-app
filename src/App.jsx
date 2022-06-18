@@ -96,10 +96,6 @@ function App() {
   }, [showForm])
   
 
-
-  // const displayDashboardButtons = () => {
-
-  // }
   
   const showPopup = async () => {
     if (role !== "HEADOFDEAPRT"){
@@ -110,54 +106,8 @@ function App() {
     setBlur("blur-sm");
   };
 
-  
-  // const storeStudyID = async (orderID) => {
-  //   console.log(orderID)
-  //   // return;
-  //   if(orderID){
-  //     await axios
-  //     .get(`/api/studies/setOrderIDStudy/${orderID}`, {withCredentials : true})
-  //     .then((resp) => {
-  //       if(resp.data.msg === "Linked Order with Study successfully"){
-  //         console.log("Linked Order with Study successfully")
-  //         // console.log(resp.data.serieID.id)
-  //         // setStudyID(resp.data.serieID.id);
-  //         setOrderID(orderID);
-  //         // dispatch(updateStudyID(resp.data.serieID.id))
-
-  //       } else {
-  //         alert("Failed linking order with study")
-  //       }
-  //     })
-  //   } else {
-  //     return
-  //   }
-  // }
 
   useEffect(()=> {
-    // console.log(studyID)
-
-    // const getSerieID = async() => {
-    //     await axios
-    //     .get(`/api/studies/getStudyID/${orderID}`, {withCredentials : true})
-    //     .then((resp) => {
-    //       if(resp.data.msg === "Fetched Study ID successfully"){
-    //         console.log("Fetched Study ID successfully")
-    //         // console.log(resp.data.serieID.id)
-    //         setStudyID(resp.data.serieID.id);
-    //         dispatch(updateStudyID(resp.data.serieID.id))
-  
-    //       } else {
-    //         alert("Failed Fetching Study ID")
-    //       }
-    //     })     
-    //   }
-
-    //   if(orderID){
-    //     getSerieID();
-    //     // console.log(studyID)
-    //   } 
-    // console.log(serie.study_id)
   
   }, [orderID])
   
@@ -165,20 +115,7 @@ function App() {
     console.log("app", studyID)
   }, [studyID])
 
-  // function timeout(ms) {
-  //   return new Promise(resolve => setTimeout(resolve, ms));
-  // }
 
-  // const linkOrderToStudy = async () =>{
-  //   await timeout(100);
-  //   // setOrderID(record.record_id)
-  //   storeStudyID(record.record_id);
-    
-  // }
-  // const getStudyID = async() =>{
-  //   await timeout(100)
-  //   return studyID
-  // }
 
 
   const showDashboardBtns = () => {
