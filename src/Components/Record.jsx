@@ -133,7 +133,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                   <>
                     <div className="mx-2 inline-block">
                       <Button
-                        label={"UPLOAD"}
+                        label={"IMAGES"}
                         onClick={linkOrderToStudy}
                         archived={archived}
                       />

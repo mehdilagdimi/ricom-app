@@ -114,9 +114,13 @@ const Serie = ({ role }) => {
             {fetchedSlices.map((image) => (
             <>
               <div className="carousel-item">
-                <h3>{image.name}</h3>
+                {/* <h3>{image.img}</h3> */}
                 <img
-                  src={image.name}
+                  className="h-[250px]"
+                  key={image.id}
+    
+                  // src={"git s"}
+                  src={"data:image/png;base64," + image.img}
                   // src={"https://api.lorem.space/image/burger?w=400&h=300&hash=8B7BCDC2"}
                   alt="Burger"
                 />
