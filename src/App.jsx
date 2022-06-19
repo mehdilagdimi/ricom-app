@@ -25,14 +25,15 @@ import Authenticate from "./Components/Authenticate";
 // import axiosConfig from "./lib/axios.config";
 import axios from "axios";
 import Delay from "./Components/helpers/Delay";
+import Profile from "./Components/Profile";
 // import { updateSerieID } from "./redux/serieSlice";
 
 function App() {
   // axiosConfig();
   const pages = new Map([
-    ["PHYSICIAN", ["Examination Orders"]],
-    ["RADIOLOGIST", ["Examination Orders"]],
-    ["HEADOFDEPART", ["Examination Orders"]],
+    ["PHYSICIAN", ["Profile", "Examination Orders"]],
+    ["RADIOLOGIST", ["Profile", "Examination Orders"]],
+    ["HEADOFDEPART", ["Profile", "Examination Orders"]],
     ["ADMIN", ["Users", "DICOM"]],
   ]);
   const userBtns = {
@@ -236,6 +237,28 @@ function App() {
                       <>
                   <Navbar setLogin={setLogin} pages={navPages.get(role)} />    
                   <Serie role={role} />
+                </>
+                )}
+
+              {loggedIn && <Footer /> }
+              </div>
+            </>
+          }
+          ></Route>
+
+
+          <Route exact path="/profile/:iduser" element={
+            <>
+              <div
+                    className={`w-full flex flex-col justify-between items-center relative min-h-screen  ${(!loggedIn ? `bg-navGray` : 'bg-white')} font-bahnschrift`}
+                    onClick={() => showForm && (setShowForm(false), setBlur(""))}
+                  >
+                  {!loggedIn ? (
+                      <Authenticate toggleLogin={setLogin} setRole={setRole} />
+                    ) : (
+                      <>
+                  <Navbar setLogin={setLogin} pages={navPages.get(role)} />    
+                  <Profile role={role} />
                 </>
                 )}
 

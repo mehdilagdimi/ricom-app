@@ -28,6 +28,8 @@ export const Navbar = ({ pages, setLogin }) => {
       return "/";
     } else if (page === "DICOM"){
       return "/DICOM";
+    } else if (page === "Profile"){
+      return "/profile/:iduser";
     }
   };
 

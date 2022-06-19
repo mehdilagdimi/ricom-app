@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 
-import closeIcon from "../close_icon.png"
+import closeIcon from "../close_icon.png";
 import Button from "./Button";
 
 import { useState, useEffect } from "react";
@@ -17,13 +17,13 @@ const Serie = ({ role }) => {
   // const navigate = useNavigate();
   const [ctPath, setCtPath] = useState("");
   const [studyID, setStudyID] = useState("");
-  const {idstudy } = useParams();
+  const { idstudy } = useParams();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
 
-  const [fetchedSlices, setFetchedSlices] = useState([])
+  const [fetchedSlices, setFetchedSlices] = useState([]);
   const record = useSelector((state) => state.record);
   // const dispatch = useDispatch()
   const uploadList = [];
@@ -31,15 +31,18 @@ const Serie = ({ role }) => {
   useEffect(() => {
     const fetchSlices = async () => {
       await axios
-      .get(
-        `/api/studies/getStudy/${idstudy}`, 
-        {withCredentials : true})
-      .then((resp) => {
-        console.log(resp.data.data[0])
-        setFetchedSlices(resp.data.data)
-        setLoading(false)
-      })
-    }
+        .get(`/api/studies/getStudy/${idstudy}`, { withCredentials: true })
+        .then((resp) => {
+          // console.log(resp.data.data[0])
+          console.log(resp.data.msg);
+          if (resp.data.msg === "Fetched Study successfully") {
+            setFetchedSlices(resp.data.data);
+          } else {
+            setFetchedSlices([]);
+          }
+          setLoading(false);
+        });
+    };
 
     fetchSlices();
   }, [idstudy, loading]);
@@ -89,30 +92,31 @@ const Serie = ({ role }) => {
       )
       .then((resp) => {
         console.log(resp.data);
-        setLoading(false)
+        setLoading(false);
       });
   };
 
-  useEffect(()=>{
+  useEffect(() => {}, [selected]);
 
-  },[selected])
-
-  const  highlightImg = (img) => {
+  const highlightImg = (img) => {
     // dispatch(updateSelectedSlice(true))
     setSelected(true);
     setSelectedImage(img);
-  }
+  };
   const closeImg = () => {
-    setSelected(false)
-    setSelectedImage("")
-    console.log(selected)
-  }
+    setSelected(false);
+    setSelectedImage("");
+    console.log(selected);
+  };
 
   return role === "ADMIN" || role === "PATIENT" ? (
     ((<Navigate to="/" replace />), alert("no"))
   ) : (
     <>
-      <div className={`relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center z-0 ${selected && "blur-sm"}`}>
+      <div
+        className={`relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center z-0 ${selected &&
+          "blur-sm"}`}
+      >
         <label htmlFor="name" className="mx-4 mt-4 mb-0">
           Upload Study :
         </label>
@@ -132,44 +136,52 @@ const Serie = ({ role }) => {
           <Button label={"SUBMIT"} type="submit" onClick={onSubmit} />
         </div>
 
-          <h1 className="mx-4"><strong>PATIENT STUDY :</strong></h1>
-        {!loading? <div className="m-4 carousel rounded-box mt-9">
-            {fetchedSlices.map((image) => (
-            <>
-              <div className="carousel-item">
-                <img
-                  className="h-[500px] w-[500px]"
-                  key={image.id}
-                  // src={"git s"}
-                  src={"data:image/png;base64," + image.img}
-                  // src={"https://api.lorem.space/image/burger?w=400&h=300&hash=8B7BCDC2"}
-                  alt={"slice" + image.id}
-                  onClick={() => highlightImg(image.img)}
-                />
-
-              </div>           
-            </>
-            ))}        
-        </div> 
-         :
-        <em>
-          Loading Images
-        </em>
-        }
-
-        {selected &&
+        <h1 className="mx-4">
+          <strong>PATIENT STUDY :</strong>
+        </h1>
+        {!loading ? (
+          <div className="m-4 carousel rounded-box mt-9">
+            {fetchedSlices.length != 0 ? (
+              fetchedSlices.map((image) => (
+                <>
+                  <div className="carousel-item">
+                    <img
+                      className="h-[500px] w-[500px]"
+                      key={image.id}
+                      // src={"git s"}
+                      src={"data:image/png;base64," + image.img}
+                      // src={"https://api.lorem.space/image/burger?w=400&h=300&hash=8B7BCDC2"}
+                      alt={"slice" + image.id}
+                      onClick={() => highlightImg(image.img)}
+                    />
+                  </div>
+                </>
+              ))
+            ) : (
+              <em> No Image was found</em>
+            )}
+          </div>
+        ) : (
+          <em>Loading Images</em>
+        )}
+      </div>
+      {selected && (
         <>
-        {/* <div className="absolute h-0 top-0 mr-0 object-contain" onBlur={(e) => console.log(e)}> */}
+          {/* <div className="absolute h-0 top-0 mr-0 object-contain" onBlur={(e) => console.log(e)}> */}
 
-            <img className="absolute top-0 right-0 h-[40px] w-[40px] cursor-pointer blur-none" src={closeIcon} onClick={closeImg}/>
+          <img
+            className="absolute top-0 right-0 h-[40px] w-[40px] cursor-pointer blur-none"
+            src={closeIcon}
+            onClick={closeImg}
+          />
           <div className="absolute flex flex-row h-0 top-0 mr-0 object-contain blur-none">
-            
-            <img className="relative inset-x-28 inset-y-8 h-[700px] blur-none" src={"data:image/png;base64," + selectedImage} />
+            <img
+              className="relative inset-x-28 inset-y-8 h-[700px] blur-none"
+              src={"data:image/png;base64," + selectedImage}
+            />
           </div>
         </>
-        }
-
-      </div>
+      )}
     </>
   );
 };
