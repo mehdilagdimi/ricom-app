@@ -117,30 +117,30 @@ const Serie = ({ role }) => {
         className={`relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center z-0 ${selected &&
           "blur-lg"}`}
       >
-        {!loading && fetchedSlices.length !== 0 ? 
-          <></>     
-          :
+        {!loading && fetchedSlices.length !== 0 ? (
+          <></>
+        ) : (
           <>
-        <label htmlFor="name" className="mx-4 mt-4 mb-0">
-          Upload Study :
-        </label>
-        <input
-          autoComplete="on"
-          className="mx-4 my-4 rounded-md p-4 border-gray-300 border"
-          required
-          type="file"
-          accept=".png, .jpeg"
-          name="slices"
-          directory=""
-          webkitdirectory=""
-          //   value={ctPath}
-          onChange={onFilesChange}
-        />
-        <div className="flex flex-row justify-end m-4">
-          <Button label={"SUBMIT"} type="submit" onClick={onSubmit} />
-        </div>   
+            <label htmlFor="name" className="mx-4 mt-4 mb-0">
+              Upload Study :
+            </label>
+            <input
+              autoComplete="on"
+              className="mx-4 my-4 rounded-md p-4 border-gray-300 border"
+              required
+              type="file"
+              accept=".png, .jpeg"
+              name="slices"
+              directory=""
+              webkitdirectory=""
+              //   value={ctPath}
+              onChange={onFilesChange}
+            />
+            <div className="flex flex-row justify-end m-4">
+              <Button label={"SUBMIT"} type="submit" onClick={onSubmit} />
+            </div>
           </>
-        }
+        )}
 
         <h1 className="mx-4">
           <strong>PATIENT STUDY :</strong>

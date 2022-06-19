@@ -1,71 +1,99 @@
 import doctorAvatar from "../medical-team.png"
+import { useState } from "react";
 
 
 const Profile = () => {
+    const [userName, setUserName] = useState("Name")
+    const [identity, setIdentity] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [date, setDate] = useState("")
+
   return (
     <div
       className={`relative flex flex-col items-center xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center z-0`}
     >
-      {/* <div class="max-w-5xl bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <img
-            class="rounded-t-lg"
-            src="/docs/images/blog/image-1.jpg"
-            alt=""
-          />
-        </a>
-        <div class="p-5">
-          <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
-            </h5>
-          </a>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Here are the biggest enterprise technology acquisitions of 2021 so
-            far, in reverse chronological order.
-          </p>
-          <a
-            href="#"
-            class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Read more
-            <svg
-              class="ml-2 -mr-1 w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </a>
-        </div>
-      </div> */}
-      <div className="mx-auto px-2 w-full  max-w-5xl">
-        <div className="flex h-[600px] bg-white border border-gray-300 rounded-xl overflow-hidden items-center justify-start cursor-auto">
-          <div className="relative w-1/2 h-full flex-shrink-0">
-            <div className="absolute left-0 px-8 pt-8 pb-10 top-0 w-full h-full flex items-center justify-center">
+
+      <div className="mx-4 my-12 px-2 w-full max-w-5xl">
+        <div className="flex flex-col sm:flex-row h-[600px] bg-white border border-gray-300 rounded-xl items-center justify-start cursor-auto">
+            <div className="absolute left-0 px-8 pt-2 pb-10 top-0 w-full flex items-center justify-center">
               <img
                 alt="User Avatar"
-                className="relative left-0 top-0 w-full h-full object-contain object-center transition duration-50"
+                className="relative left-0 top-0  w-[100px]  h-[100px] object-contain object-center transition duration-50"
                 loading="lazy"
                 src={doctorAvatar}
               />
             </div>
-          </div>
+          <div className="relative w-full h-full flex flex-shrink-0 items-center justify-center">
+          <div className="relative p-4 flex flex-col w-full h-full">
+            {/* <p className="text-lg line-clamp-1 text-center">PROFILE</p> */}
 
-          <div className="p-4">
-            <p className="text-sm line-clamp-1">New tweet title</p>
-
-            <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-              Description of what you are sharing
+            <p className="text-2xl text-gray-500 m-4 line-clamp-2">
+              {userName}
             </p>
+            <label htmlFor="name" className="mx-4">
+              IDENTITY
+            </label>
+            <input
+              className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
+              disabled
+              type="text"
+              value={identity}
+            //   placeholder = {""}
+            //   pattern = {}
+              onChange={
+                  (e) => setIdentity(e.currentTarget.value)
+              }
+            
+            />
+            
+            <label htmlFor="name" className="mx-4">
+              PHONE NUMBER
+            </label>
+            <input
+              className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
+              disabled
+              type="tel"
+              value={identity}
+            //   placeholder = {""}
+            //   pattern = {}
+              onChange={
+                  (e) => setIdentity(e.currentTarget.value)
+              }
+            
+            />
 
+            <label htmlFor="name" className="mx-4">
+              EMAIL
+            </label>
+            <input
+              className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
+              disabled
+              type="email"
+              value={email}
+              onChange={
+                  (e) => setEmail(e.currentTarget.value)
+              }
+            
+            />
+
+            <label htmlFor="name" className="mx-4">
+              CREATION DATE 
+            </label>
+            <input
+              className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
+              disabled
+              type="text"
+              value={date}
+              onChange={
+                  (e) => setDate(e.currentTarget.value)
+              }
+            
+            />
+
+            
             <span className="flex items-center justify-start text-gray-500">
-              <svg
+            <svg
                 className="w-4 h-4 mr-1"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -77,9 +105,11 @@ const Profile = () => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              stackdiary.com
+              socialmedia.com
             </span>
           </div>
+          </div>
+
         </div>
       </div>
     </div>
