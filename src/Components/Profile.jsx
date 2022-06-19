@@ -1,4 +1,5 @@
-import React from "react";
+import doctorAvatar from "../medical-team.png"
+
 
 const Profile = () => {
   return (
@@ -48,10 +49,10 @@ const Profile = () => {
           <div className="relative w-1/2 h-full flex-shrink-0">
             <div className="absolute left-0 px-8 pt-8 pb-10 top-0 w-full h-full flex items-center justify-center">
               <img
-                alt="Placeholder Photo"
-                className="relative left-0 top-0 w-full h-full object-cover object-center transition duration-50"
+                alt="User Avatar"
+                className="relative left-0 top-0 w-full h-full object-contain object-center transition duration-50"
                 loading="lazy"
-                src="https://stackdiary.com/140x100.png"
+                src={doctorAvatar}
               />
             </div>
           </div>

@@ -115,8 +115,12 @@ const Serie = ({ role }) => {
     <>
       <div
         className={`relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center z-0 ${selected &&
-          "blur-sm"}`}
+          "blur-lg"}`}
       >
+        {!loading && fetchedSlices.length !== 0 ? 
+          <></>     
+          :
+          <>
         <label htmlFor="name" className="mx-4 mt-4 mb-0">
           Upload Study :
         </label>
@@ -134,7 +138,9 @@ const Serie = ({ role }) => {
         />
         <div className="flex flex-row justify-end m-4">
           <Button label={"SUBMIT"} type="submit" onClick={onSubmit} />
-        </div>
+        </div>   
+          </>
+        }
 
         <h1 className="mx-4">
           <strong>PATIENT STUDY :</strong>
@@ -144,13 +150,11 @@ const Serie = ({ role }) => {
             {fetchedSlices.length != 0 ? (
               fetchedSlices.map((image) => (
                 <>
-                  <div className="carousel-item">
+                  <div className="carousel-item mx-2">
                     <img
                       className="h-[500px] w-[500px]"
                       key={image.id}
-                      // src={"git s"}
                       src={"data:image/png;base64," + image.img}
-                      // src={"https://api.lorem.space/image/burger?w=400&h=300&hash=8B7BCDC2"}
                       alt={"slice" + image.id}
                       onClick={() => highlightImg(image.img)}
                     />
@@ -167,18 +171,23 @@ const Serie = ({ role }) => {
       </div>
       {selected && (
         <>
-          {/* <div className="absolute h-0 top-0 mr-0 object-contain" onBlur={(e) => console.log(e)}> */}
-
-          <img
-            className="absolute top-0 right-0 h-[40px] w-[40px] cursor-pointer blur-none"
-            src={closeIcon}
+          <div
+            className={`absolute h-screen w-screen max-h-screen max-w-screen z-50`}
             onClick={closeImg}
-          />
-          <div className="absolute flex flex-row h-0 top-0 mr-0 object-contain blur-none">
-            <img
-              className="relative inset-x-28 inset-y-8 h-[700px] blur-none"
-              src={"data:image/png;base64," + selectedImage}
-            />
+          ></div>
+
+          <div className="absolute h-full w-full mx-auto my-auto p-11 flex flex-row justify-center items-center max-h-screen max-w-screen">
+            <div className="fixed  blur-none">
+              {/* <img
+                className="mx-auto my-auto h-[40px] w-[40px] cursor-pointer blur-none z-0"
+                src={closeIcon}
+                onClick={closeImg}
+              /> */}
+              <img
+                className="border-solid border-2 border-black relative h-[700px] blur-none object-contain"
+                src={"data:image/png;base64," + selectedImage}
+              />
+            </div>
           </div>
         </>
       )}
