@@ -72,7 +72,7 @@ const Authenticate = ({ toggleLogin, setRole}) => {
           </Link>
         </div>
       </div>
-      <div className="bg-footerGray w-11/12 flex flex-wrap mx-auto justify-center items-center rounded-xl h-[580px] mt-10 sm:mt-4 sm:h-[550px]">
+      <div className="bg-footerGray w-11/12 flex flex-wrap mx-auto justify-center items-center rounded-xl h-[620px] mt-10 sm:mt-4 sm:h-[550px]">
         <div className="flex-1 flex flex-col  sm:h-full justify-center items-center p-2">
           <p className="text-center text-white text-lg sm:text-2xl m-1">
             RICOM <br></br> is your effective daily workflow management platform

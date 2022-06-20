@@ -147,7 +147,7 @@ const Serie = ({ role }) => {
             {fetchedSlices.length != 0 ? (
               fetchedSlices.map((image) => (
                 <>
-                  <div className="carousel-item mx-2">
+                  <div className="carousel-item mx-2" >
                     <img
                       className="h-[500px] w-[500px]"
                       key={image.id}
@@ -164,7 +164,7 @@ const Serie = ({ role }) => {
           </div>
         ) : (
           // <div className="flex flex-row flex-end w-full h-full" >
-            <div className="mx-auto my-auto mt-6 flex-end">
+            <div className="mx-auto my-auto mt-6">
               <Loader />
             </div>
           // </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import Loader from "./helpers/Loader/Loader";
 
 // import { triggerRefresh, selectRecord } from "../redux/recordSlice"
 
@@ -202,8 +203,9 @@ const Body = ({ onClickEdit, role }) => {
           {!loading ? (
             recordsData.map((record) => getRecord(record))
           ) : (
-            // <em>Loading</em>
-            "Loading"
+            <div className="absolute flex justify-center w-full mt-6">
+              <Loader />
+            </div>
           )}
           {/* </tbody> */}
         </table>

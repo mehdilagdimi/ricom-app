@@ -45,7 +45,7 @@ export const Navbar = ({ pages, setLogin }) => {
               <img src={logo} alt="logo" />
             </Link>
           </div>
-          <div className="flex justify-center items-center mx-2">
+          <div className="flex flex-wrap justify-center items-center mx-2">
             <div className="mx-2 inline-flex ">
               {pages.map((page, index) => (
                 // console.log(page),
@@ -57,9 +57,9 @@ export const Navbar = ({ pages, setLogin }) => {
               ))}
             </div>
 
-            <div className="mx-2">
+            <div className="mx-2 my-2 sm:my-0">
               <Link to="/">
-                <img onClick={logout} src={logoutIcon} alt="logout" />
+                <img className="h-[40px] w-[40px] sm:h-full sm:w-full" onClick={logout} src={logoutIcon} alt="logout" />
               </Link>
             </div>
           </div>
