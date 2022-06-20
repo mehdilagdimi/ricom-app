@@ -37,9 +37,9 @@ const Button = ({ label, onClick, archived, type, data }) => {
   // }, [serieId]);
   
 
-  function timeout(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  // function timeout(ms) {
+  //   return new Promise((resolve) => setTimeout(resolve, ms));
+  // }
 
   const onCLICK = (event, sId) => {
 

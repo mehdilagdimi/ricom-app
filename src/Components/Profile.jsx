@@ -1,13 +1,45 @@
+import axios from "axios"
+
 import doctorAvatar from "../medical-team.png"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { useParams } from "react-router";
 
 
 const Profile = () => {
-    const [userName, setUserName] = useState("Name")
-    const [identity, setIdentity] = useState("")
-    const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
-    const [date, setDate] = useState("")
+
+    // const [userName, setUserName] = useState("Name")
+    // const [identity, setIdentity] = useState("")
+    // const [email, setEmail] = useState("")
+    // const [phone, setPhone] = useState("")
+    // const [date, setDate] = useState("")
+    const [user, setUser] = useState({})
+    const [loading, setLoading] = useState(true)
+    const { iduser } = useParams();
+    
+
+    useEffect(() => {
+        const fetchUser = async () => {
+          await axios
+            .get(`/api/users/getUser/${iduser}`, { withCredentials: true })
+            .then((resp) => {
+              console.log(resp.data.response);
+              if (resp.data.response === "User found") {
+                setUser(resp.data.user);
+                console.log(resp.data.user)
+              } else {
+                  console.log("Failed getting user info");
+              }
+              setLoading(false);
+            });
+        };
+    
+        fetchUser();
+      }, [iduser]);
+
+      useEffect(()=> {
+        // console.log(user)
+      }, [loading])
 
   return (
     <div
@@ -25,11 +57,11 @@ const Profile = () => {
               />
             </div>
           <div className="relative w-full h-full flex flex-shrink-0 items-center justify-center">
-          <div className="relative p-4 flex flex-col w-full h-full">
+          <div className="relative p-4 mb-12 mt-20 mx-4 flex flex-col w-full h-full">
             {/* <p className="text-lg line-clamp-1 text-center">PROFILE</p> */}
 
-            <p className="text-2xl text-gray-500 m-4 line-clamp-2">
-              {userName}
+            <p className="text-sm sm:text-2xl text-gray-500 mb-4 mt-8  line-clamp-2">
+              {user.fname + user.lname}
             </p>
             <label htmlFor="name" className="mx-4">
               IDENTITY
@@ -38,12 +70,10 @@ const Profile = () => {
               className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
               disabled
               type="text"
-              value={identity}
+              value={user.role}
             //   placeholder = {""}
             //   pattern = {}
-              onChange={
-                  (e) => setIdentity(e.currentTarget.value)
-              }
+            
             
             />
             
@@ -54,12 +84,10 @@ const Profile = () => {
               className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
               disabled
               type="tel"
-              value={identity}
+              value={user.phone}
             //   placeholder = {""}
             //   pattern = {}
-              onChange={
-                  (e) => setIdentity(e.currentTarget.value)
-              }
+            
             
             />
 
@@ -70,11 +98,8 @@ const Profile = () => {
               className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
               disabled
               type="email"
-              value={email}
-              onChange={
-                  (e) => setEmail(e.currentTarget.value)
-              }
-            
+              value={user.email}
+              
             />
 
             <label htmlFor="name" className="mx-4">
@@ -84,15 +109,12 @@ const Profile = () => {
               className="mx-4 m-4  rounded-md p-4 border-gray-300 border"
               disabled
               type="text"
-              value={date}
-              onChange={
-                  (e) => setDate(e.currentTarget.value)
-              }
+              value={user.createdat}
             
             />
 
             
-            <span className="flex items-center justify-start text-gray-500">
+            <span className="flex items-center justify-end text-gray-500">
             <svg
                 className="w-4 h-4 mr-1"
                 fill="currentColor"

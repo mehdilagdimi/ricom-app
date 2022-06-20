@@ -34,7 +34,7 @@ function App() {
     ["PHYSICIAN", ["Profile", "Examination Orders"]],
     ["RADIOLOGIST", ["Profile", "Examination Orders"]],
     ["HEADOFDEPART", ["Profile", "Examination Orders"]],
-    ["ADMIN", ["Users", "DICOM"]],
+    ["ADMIN", ["Profile", "Users", "DICOM"]],
   ]);
   const userBtns = {
     Radiologist: ["All Studies"],
@@ -149,7 +149,7 @@ function App() {
     } else if (role === "RADIOLOGIST"){
       // return userBtns.Radiologist.map((label, idx) => (btn(label, idx, linkOrderToStudy)))
     } else if (role === "HEADOFDEPART"){
-      return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
+      // return userBtns.HeadOfDepart.map((label, idx) => (btn(label, idx, (e)=> e.preventdefault)));
     } else if (role === "ADMIN"){
       return userBtns.Admin.map((label, idx) => (btn(label, idx, showPopup)));
     }

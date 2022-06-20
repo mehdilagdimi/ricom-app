@@ -10,6 +10,7 @@ import useLocalStorage from "../Custom hooks/useLocalStorage";
 import Button from "./Button";
 
 const AddForm = ({ role, setShowForm }) => {
+  const [refresh, setRefresh] = useState(false);
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
   const [value3, setValue3] = useState("");
@@ -38,6 +39,10 @@ const AddForm = ({ role, setShowForm }) => {
 
     console.log(record.record_id)
   }, [role]);
+
+  useEffect(() => {
+
+  }, [value, value2, value3, refresh])
 
   const fetchPatientsIds = async () => {
     await axios
@@ -140,12 +145,11 @@ const AddForm = ({ role, setShowForm }) => {
         { withCredentials: true }
       )
       .then((resp) => {
-        // console.log(resp.data)
         if (resp.data.msg == "Assigned Radiologist successfully") {
+          window.location.reload();
         } else {
           alert("Failed to assign radiologist");
         }
-        // window.location.reload();
       });
   };
 
@@ -281,11 +285,11 @@ const AddForm = ({ role, setShowForm }) => {
                 type="text"
                 value={value3}
                 onChange={(e) => searchFor(e.currentTarget.value)}
-                onBlur={() => {
-                  setTimeout(() => {
-                    setSuggestions([]);
-                  }, 100);
-                }}
+                // onBlur={() => {
+                //   setTimeout(() => {
+                //     setSuggestions([]);
+                //   }, 100);
+                // }}
               />
               {suggestions.length ? (
                 <div className="z-40 mx-4 w-11/12 top-1/3 mt-12 absolute md:rounded border-gray-300 border">
@@ -293,7 +297,8 @@ const AddForm = ({ role, setShowForm }) => {
                     <div
                       className="relative py-1 pl-2 bg-white md:rounded"
                       key={i}
-                      onClick={() => (setValue3(sug), setSuggestions([]))}
+                      onClick={() => {setValue3(sug)
+                                       setSuggestions([])}}
                     >
                       {sug}
                     </div>
@@ -301,7 +306,7 @@ const AddForm = ({ role, setShowForm }) => {
                 </div>
               ) : null}
               <div className="flex justify-end w-full px-4">
-                <Button onClick={(e) => e.preventDefault} label="ASSIGN" />
+                <Button onClick={() => setRefresh(true)} label="ASSIGN" />
               </div>
             </div>
           )}

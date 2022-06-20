@@ -22,7 +22,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const selectReport = (e, label) => {
+  const selectRecord = (e, label) => {
     // archive();
     // dispatch(updateRecordID({ record_id: data.id }));
     dispatch(updateRecordID(data.id));
@@ -100,10 +100,9 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
       return (
         <>
           <tr
-            className={`${
-              selected ? "bg-pink-100" : "bg-navGray"
+            className={`bg-navGray
             } text-center cursor-pointer`}
-            onClick={(e) => selectReport(e)}
+            // onClick={(e) => selectRecord(e)}
           >
             <td className="py-2 px-6 text-left rounded-l-lg">
               {data.patient_id}{" "}
@@ -129,7 +128,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                   />
                 </div>
 
-                {role === "RADIOLOGIST" && (
+                {role === "RADIOLOGIST" || role === "HEADOFDEPART" && (
                   <>
                     <div className="mx-2 inline-block">
                       <Button
@@ -144,8 +143,8 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                 <div className="mx-2 inline-block">
                   <Button
                     label={btnsLabel[1]}
-                    archived={data.status === "DONE" ? true : false}
-                    onClick={(e) => selectReport(e, btnsLabel[1])}
+                    archived={data.status === "DONE" || data.radiologist_id ? true : false}
+                    onClick={(e) => {selectRecord(e, btnsLabel[1])}}
                   />
                 </div>
               </div>
@@ -156,7 +155,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
             // <Report role={role} getReport={getReport} orderID={data.id} />
           )}
         </>
-      );
+      )
     } else {
       return (
         <>

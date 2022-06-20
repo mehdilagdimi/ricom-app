@@ -29,7 +29,10 @@ export const Navbar = ({ pages, setLogin }) => {
     } else if (page === "DICOM"){
       return "/DICOM";
     } else if (page === "Profile"){
-      return "/profile/:iduser";
+      let userID = window.sessionStorage.getItem("ricomUserID");
+      // console.log(userID);
+      return `/profile/${userID}`;
+      // return `/profile/:iduser`;
     }
   };
 

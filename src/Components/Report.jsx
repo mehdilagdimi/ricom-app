@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 import Button from "./Button";
 
 const Report = ({ role, getReport, orderID }) => {
-  const [physReport, setPhysReport] = useState("Insert your report here ...");
-  const [radReport, setRadReport] = useState("Insert your report here ...");
+  const [physReport, setPhysReport] = useState("...");
+  const [radReport, setRadReport] = useState("...");
   const [label, setLabel] = useState("SAVE")
   const [disabled, setDisabled] = useState(true)
   const [showSave, setShowSave] = useState(false);

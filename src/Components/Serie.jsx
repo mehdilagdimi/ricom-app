@@ -117,7 +117,7 @@ const Serie = ({ role }) => {
         className={`relative flex flex-col xl:w-5/6 lg:w-4/6 sm:w-5/6 w-full h-2/6 justify-center z-0 ${selected &&
           "blur-lg"}`}
       >
-        {!loading && fetchedSlices.length !== 0 ? (
+        {(!loading && fetchedSlices.length !== 0) || role === "HEADOFDEPART" ? (
           <></>
         ) : (
           <>
