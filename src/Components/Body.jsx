@@ -11,7 +11,7 @@ import Record from "./Record";
 
 const Body = ({ onClickEdit, role }) => {
   const userBtns = {
-    Admin: ["UPDATE", "ARCHIVE"],
+    Admin: ["SHOW", "ARCHIVE"],
     Radiologist: ["REPORT", "DONE"],
     Physician: ["REPORT", "EDIT"],
     HeadOfDepart: ["VIEW", "ASSIGN"],

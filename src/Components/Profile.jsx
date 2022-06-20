@@ -47,7 +47,7 @@ const Profile = () => {
     >
 
       <div className="mx-4 my-12 px-2 w-full max-w-5xl">
-        <div className="flex flex-col sm:flex-row h-[600px] bg-white border border-gray-300 rounded-xl items-center justify-start cursor-auto">
+        <div className="flex flex-col sm:flex-row h-[600px] bg-white border border-appPink rounded-xl items-center justify-start cursor-auto">
             <div className="absolute left-0 px-8 pt-2 pb-10 top-0 w-full flex items-center justify-center">
               <img
                 alt="User Avatar"
@@ -61,7 +61,7 @@ const Profile = () => {
             {/* <p className="text-lg line-clamp-1 text-center">PROFILE</p> */}
 
             <p className="text-sm sm:text-2xl text-gray-500 mb-4 mt-8  line-clamp-2">
-              {user.fname + user.lname}
+              {user.fname + " " + user.lname}
             </p>
             <label htmlFor="name" className="mx-4">
               IDENTITY

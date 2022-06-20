@@ -11,7 +11,7 @@ import Report from "./Report";
 
 const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const [value, setValue] = useState();
-  const [showReport, setShowReport] = useState(false);
+  // const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selected, setSelected] = useState(false);
   const [serieID, setSerieID] = useState(null);
@@ -121,7 +121,6 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                   <Button
                     label={btnsLabel[0]}
                     onClick={() => (
-                      setShowReport(!showReport),
                       setSelected(!selected)
                       // setShowReport(!showReport), setSelected(!selected)
                     )}
@@ -174,9 +173,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                 <div className="mx-2 inline-block">
                   <Button
                     label={btnsLabel[0]}
-                    onClick={() => (
-                      setShowReport(!showReport), setSelected(!selected)
-                    )}
+                    onClick={() => navigate(`/profile/${data.id}`)}
                   />
                 </div>
                 <div className="mx-2 inline-block">
