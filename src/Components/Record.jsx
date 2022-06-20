@@ -146,7 +146,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                 <div className="mx-2 inline-block">
                   <Button
                     label={btnsLabel[1]}
-                    archived={data.status === "DONE" || data.radiologist_id ? true : false}
+                    archived={(data.status === "DONE" || (data.radiologist_id && role === "HEADOFDEPART")) ? true : false}
                     onClick={(e) => {selectRecord(e, btnsLabel[1])}}
                   />
                 </div>
