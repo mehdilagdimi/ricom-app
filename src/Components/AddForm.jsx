@@ -38,11 +38,21 @@ const AddForm = ({ role, setShowForm }) => {
     }
 
     console.log(record.record_id)
+    // console.log(record.patient_id)
   }, [role]);
 
   useEffect(() => {
+    if(record.patient_id && record.order){
+      setValue(record.patient_id);
+      setValue2(record.order);
+    }
+    console.log(value)
+    console.log(value2)
+    // const fetchOrder = () => {
+    //   axios.post(`/api/orders/getOrder/`, {withCredentials : true})
+    // }
 
-  }, [value, value2, value3, refresh])
+  }, [value, value2, value3, refresh, record])
 
   const fetchPatientsIds = async () => {
     await axios

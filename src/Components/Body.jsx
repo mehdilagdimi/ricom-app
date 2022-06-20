@@ -94,15 +94,12 @@ const Body = ({ onClickEdit, role }) => {
   const getRecord = (record) => {
     const onClickEdit_ = (e) => {
       if(role !== "ADMIN" && role !== "RADIOLOGIST"){
+       
         onClickEdit(e)
-      } else {
-        if(role === "ADMIN"){
-          // archiveRecord();
-        } else {
+      } else {       
           console.log("test")
           setStatus("DONE");
           changeRecordState(record);
-        }
       }
     }
       return (

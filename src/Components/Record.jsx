@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateRecordID, updatePhysicianName } from "../redux/recordSlice";
+import { updateRecordID, updatePhysicianName, updatePatientID, updateOrder } from "../redux/recordSlice";
 
 import Button from "./Button";
 import Report from "./Report";
 
 const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const [value, setValue] = useState();
-  // const [showReport, setShowReport] = useState(false);
+  const [showReport, setShowReport] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selected, setSelected] = useState(false);
   const [serieID, setSerieID] = useState(null);
@@ -23,11 +23,13 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   const dispatch = useDispatch();
 
   const selectRecord = (e, label) => {
-    // archive();
-    // dispatch(updateRecordID({ record_id: data.id }));
+    if(data.physician_order){
+      // console.log(data.patient_id)
+      dispatch(updateOrder(data.physician_order));
+      dispatch(updatePatientID(data.patient_id));
+    }
     dispatch(updateRecordID(data.id));
-    // console.log(data.id)
-    // console.log(record.record_id);
+    
     if (label) {
       dispatch(updatePhysicianName({ physician_lname: data.physician_lname }));
       onClickEdit(e);
@@ -121,8 +123,8 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                   <Button
                     label={btnsLabel[0]}
                     onClick={() => (
-                      setSelected(!selected)
-                      // setShowReport(!showReport), setSelected(!selected)
+                      setSelected(!selected),
+                      setShowReport(!showReport), setSelected(!selected)
                     )}
                   />
                 </div>
