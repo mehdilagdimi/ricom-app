@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { triggerRefresh, selectRecord } from "../redux/recordSlice"
+// import { triggerRefresh, selectRecord } from "../redux/recordSlice"
 
 
 import Pagination from "./Pagination";
@@ -19,9 +19,10 @@ const Body = ({ onClickEdit, role }) => {
   const userID = window.sessionStorage.getItem("ricomUserID");
   const [recordsData, setRecordsData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingRecordState, setLoadingRecordState] = useState(true);
   const [pageCount, setPageCount] = useState(0);
   const [status, setStatus] = useState("");
-  const { refresh } = useSelector((state) => state.record)
+  // const { refresh } = useSelector((state) => state.record)
 
   const record = useSelector((state) => state.record)
 
@@ -50,7 +51,6 @@ const Body = ({ onClickEdit, role }) => {
         // console.log(resp.data.data[0].id);
         // console.log(resp.data.data);
         // console.log(resp.data.recordsTotal);
-
         setRecordsData(resp.data.data);
         setLoading(false);
         let total = parseInt(resp.data.recordsTotal);
@@ -74,6 +74,7 @@ const Body = ({ onClickEdit, role }) => {
         .then((resp) => {
           // console.log(resp.data)
           if (resp.data.msg == "State changed successfully") {
+            setLoadingRecordState(false)
           } else {
             alert("Failed to change state");
           }
@@ -87,7 +88,7 @@ const Body = ({ onClickEdit, role }) => {
       fetchRecords();
       // console.log(refresh)
       // console.log(record.order_id)
-  }, [userID, status, refresh]);
+  }, [userID, status, loadingRecordState]);
 
 
 

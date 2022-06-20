@@ -84,7 +84,6 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
   };
 
   useEffect(() => {
-    console.log(serieID)
     if (serieID) {
       navigate(`/study/${serieID}`);
     }

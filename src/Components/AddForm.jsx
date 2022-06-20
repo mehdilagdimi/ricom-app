@@ -105,6 +105,28 @@ const AddForm = ({ role, setShowForm }) => {
         window.location.reload();
       });
   };
+  
+  const updateOrder = async () => {
+    let orderID = record.record_id;
+    await axios
+      .post(
+        "/api/orders/updateOrder/",
+        {
+          orderID: orderID,
+          patientID: value,
+          order: value2,
+        },
+        { withCredentials: true }
+      )
+      .then((resp) => {
+        // console.log(resp.data)
+        if (resp.data.msg == "Order updated successfully") {
+        } else {
+          alert("Failed to update order");
+        }
+        window.location.reload();
+      });
+  };
 
   const storeUser = async () => {
     const userID = window.sessionStorage.getItem("ricomUserID");
@@ -198,8 +220,14 @@ const AddForm = ({ role, setShowForm }) => {
     e.preventDefault();
  
     if (role === "PHYSICIAN") {
-      await storeOrder();
-      
+      //check if order is already set, if yes then update(through EDIT button) else create new one(through ADD ORDER button) 
+      if(record.record_id){
+        // console.log("test")
+        await updateOrder();
+      } else {
+        await storeOrder();
+      }
+
     } else if (role === "HEADOFDEPART") {
       // let rad = radiologists.find(obj => obj.lname === value3)
       let idx = radiologists.indexOf(value3);

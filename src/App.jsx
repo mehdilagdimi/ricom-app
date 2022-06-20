@@ -34,7 +34,8 @@ function App() {
     ["PHYSICIAN", ["Profile", "Examination Orders"]],
     ["RADIOLOGIST", ["Profile", "Examination Orders"]],
     ["HEADOFDEPART", ["Profile", "Examination Orders"]],
-    ["ADMIN", ["Profile", "Users", "DICOM"]],
+    ["ADMIN", ["Profile", "Users"]],
+    // ["ADMIN", ["Profile", "Users", "DICOM"]],
   ]);
   const userBtns = {
     Radiologist: ["All Studies"],
