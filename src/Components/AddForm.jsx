@@ -25,10 +25,7 @@ const AddForm = ({ role, setShowForm }) => {
   const [patients_id, setPatientsId] = useLocalStorage("patientsId", []);
   const [radiologists, setRadiologists] = useLocalStorage("radiologists", []);
   const [radIDs, setRadiologistsID] = useLocalStorage("radiologists_id", []);
-  // console.log(window.sessionStorage.getItem("ricomUserID"));
   const record = useSelector((state) => state.record);
-  // const { record_id, } = record
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (role === "HEADOFDEPART") {
@@ -36,21 +33,14 @@ const AddForm = ({ role, setShowForm }) => {
         setValue(record.physician_lname);
       }
     }
-
     console.log(record.record_id)
     // console.log(record.patient_id)
   }, [role]);
 
   useEffect(() => {
-    if(record.patient_id && record.order){
-      setValue(record.patient_id);
-      setValue2(record.order);
-    }
+    
     console.log(value)
     console.log(value2)
-    // const fetchOrder = () => {
-    //   axios.post(`/api/orders/getOrder/`, {withCredentials : true})
-    // }
 
   }, [value, value2, value3, refresh, record])
 
@@ -93,6 +83,9 @@ const AddForm = ({ role, setShowForm }) => {
 
   const storeOrder = async () => {
     const userID = window.sessionStorage.getItem("ricomUserID");
+    // console.log(value)
+    // console.log(value2)
+    // return
     await axios
       .post(
         "/api/orders/storeOrder/",
@@ -203,10 +196,10 @@ const AddForm = ({ role, setShowForm }) => {
 
   const addHandler = async (e) => {
     e.preventDefault();
+ 
     if (role === "PHYSICIAN") {
       await storeOrder();
-      // dispatch(triggerRefresh())
-
+      
     } else if (role === "HEADOFDEPART") {
       // let rad = radiologists.find(obj => obj.lname === value3)
       let idx = radiologists.indexOf(value3);
@@ -219,11 +212,8 @@ const AddForm = ({ role, setShowForm }) => {
       await storeUser();
     }
   };
-  // useEffect(() => {
-  //   // getInput(value);
-  //   // console.log(patients_id);
-  //   console.log(suggestions);
-  // }, [suggestions]);
+  
+
   const getForm = () => {
     if (role !== "ADMIN") {
       return (

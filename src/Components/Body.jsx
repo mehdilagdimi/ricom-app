@@ -166,7 +166,7 @@ const Body = ({ onClickEdit, role }) => {
             <th className="p-2">Added At</th>
             <th className="p-2">Status</th>
             <th className="p-2">
-              {role == "PHYSICIAN" ? "Radiologist" : "Physician"}
+              {((role === "PHYSICIAN" && role !== "HEADOFDEPART") && role !== "RADIOLOGIST") ? "Radiologist" : "Physician"}
             </th>
             <th className="p-2"></th>
         </>

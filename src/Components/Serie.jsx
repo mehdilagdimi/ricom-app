@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 
 import closeIcon from "../close_icon.png";
+import Loader from "./helpers/Loader/Loader"
 import Button from "./Button";
 
 import { useState, useEffect } from "react";
@@ -14,18 +15,17 @@ import { data } from "autoprefixer";
 import { updateSelectedSlice } from "../redux/serieSlice";
 
 const Serie = ({ role }) => {
-  // const navigate = useNavigate();
   const [ctPath, setCtPath] = useState("");
   const [studyID, setStudyID] = useState("");
   const { idstudy } = useParams();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingUpload, setLoadingUpload] = useState(true);
   const [selected, setSelected] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
 
   const [fetchedSlices, setFetchedSlices] = useState([]);
   const record = useSelector((state) => state.record);
-  // const dispatch = useDispatch()
   const uploadList = [];
 
   useEffect(() => {
@@ -45,11 +45,12 @@ const Serie = ({ role }) => {
     };
 
     fetchSlices();
-  }, [idstudy, loading]);
+  }, [idstudy, loading, loadingUpload]);
 
-  // const redirect = () => {
-  //     navigate('/DICOM', {replace : true})
-  // }
+  useEffect(() => {
+
+  }, [fetchedSlices])
+ 
 
   const readFileAsync = (file) =>
     new Promise((resolve) => {
@@ -67,9 +68,7 @@ const Serie = ({ role }) => {
 
     console.log(uploadList);
     setImages(uploadList);
-    // fileReader.onload = (event) => {
-    //     setImages(event.target.result)
-    // }
+
   };
 
   function timeout(ms) {
@@ -92,14 +91,13 @@ const Serie = ({ role }) => {
       )
       .then((resp) => {
         console.log(resp.data);
-        setLoading(false);
+        setLoadingUpload(false);
       });
   };
 
   useEffect(() => {}, [selected]);
 
   const highlightImg = (img) => {
-    // dispatch(updateSelectedSlice(true))
     setSelected(true);
     setSelectedImage(img);
   };
@@ -133,7 +131,6 @@ const Serie = ({ role }) => {
               name="slices"
               directory=""
               webkitdirectory=""
-              //   value={ctPath}
               onChange={onFilesChange}
             />
             <div className="flex flex-row justify-end m-4">
@@ -166,7 +163,11 @@ const Serie = ({ role }) => {
             )}
           </div>
         ) : (
-          <em>Loading Images</em>
+          // <div className="flex flex-row flex-end w-full h-full" >
+            <div className="mx-auto my-auto mt-6 flex-end">
+              <Loader />
+            </div>
+          // </div>
         )}
       </div>
       {selected && (
@@ -184,7 +185,7 @@ const Serie = ({ role }) => {
                 onClick={closeImg}
               /> */}
               <img
-                className="border-solid border-2 border-black relative h-[700px] blur-none object-contain"
+                className="border-solid border-0 sm:border-2 border-black relative h-[700px] blur-none object-contain"
                 src={"data:image/png;base64," + selectedImage}
               />
             </div>

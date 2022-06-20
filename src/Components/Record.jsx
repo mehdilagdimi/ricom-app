@@ -29,7 +29,7 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
       dispatch(updatePatientID(data.patient_id));
     }
     dispatch(updateRecordID(data.id));
-    
+
     if (label) {
       dispatch(updatePhysicianName({ physician_lname: data.physician_lname }));
       onClickEdit(e);
@@ -113,9 +113,11 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
             <td className="py-2 px-6">{data.addedat}</td>
             <td className="py-2 px-6">{data.status}</td>
             <td className="py-2 px-6">
-              {data.radiologist_id
-                ? (data.radiologist_fname, " ", data.radiologist_lname)
-                : "TO BE ASSIGNED"}
+              {role === "PHYSICIAN" ? (data.radiologist_id
+                ? (data.radiologist_lname)
+                : "TO BE ASSIGNED") :
+                (data.physician_lname)}
+                {/* (data.physician_fname + " " + data.physician_lname)} */}
             </td>
             <td className="h-full w-40 py-2 px-1 text-right">
               <div className="flex justify-end  p-0 m-0">
@@ -129,9 +131,9 @@ const Record = ({ onClickEdit, btnsLabel, role, data }) => {
                   />
                 </div>
 
-                {role === "RADIOLOGIST" || role === "HEADOFDEPART" && (
+                {(role === "RADIOLOGIST" || role === "HEADOFDEPART")  && (
                   <>
-                    <div className="mx-2 inline-block">
+                    <div className="mx-2 inline-block">               
                       <Button
                         label={"IMAGES"}
                         onClick={linkOrderToStudy}
